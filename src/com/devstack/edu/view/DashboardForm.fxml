@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="449.0" prefWidth="946.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.edu.controller.DashboardFormController">
+<AnchorPane fx:id="dashboardFormContext" prefHeight="449.0" prefWidth="946.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.edu.controller.DashboardFormController">
    <children>
       <Label layoutX="14.0" layoutY="7.0" text="Dashboard">
          <font>
@@ -28,119 +28,140 @@
          </font>
       </Label>
       <Separator layoutX="727.0" layoutY="17.0" orientation="VERTICAL" prefHeight="25.0" prefWidth="0.0" />
-      <AnchorPane layoutX="14.0" layoutY="66.0" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #1ABC9C; -fx-border-radius: 10px;">
+      <AnchorPane layoutX="14.0" layoutY="66.0" onMouseClicked="#studentClickOnAction" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #1ABC9C;">
          <children>
             <Label layoutX="59.0" layoutY="142.0" text="Student" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="19.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="19.0" layoutY="26.0" onMouseClicked="#studentClickOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../asserts/dashboard/undraw_Exams_re_4ios.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </AnchorPane>
-      <AnchorPane layoutX="201.0" layoutY="66.0" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #D35400; -fx-border-radius: 20;">
+      <AnchorPane layoutX="201.0" layoutY="66.0" onMouseClicked="#programClickOnAction" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #D35400;">
          <children>
             <Label layoutX="60.0" layoutY="142.0" text="Programs" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="22.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="22.0" layoutY="26.0" onMouseClicked="#programClickOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../asserts/dashboard/undraw_Pair_programming_re_or4x.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </AnchorPane>
-      <AnchorPane layoutX="387.0" layoutY="66.0" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #2C3E50;">
+      <AnchorPane layoutX="387.0" layoutY="66.0" onMouseClicked="#trainerClickOnAction" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #2C3E50;">
          <children>
             <Label layoutX="60.0" layoutY="142.0" text="Trainers" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="21.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="21.0" layoutY="27.0" onMouseClicked="#trainerClickOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../asserts/dashboard/undraw_Educator_re_ju47.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </AnchorPane>
-      <AnchorPane layoutX="574.0" layoutY="66.0" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #8E44AD;">
+      <AnchorPane layoutX="574.0" layoutY="66.0" onMouseClicked="#intakeClickOnAction" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #8E44AD;">
          <children>
             <Label layoutX="62.0" layoutY="142.0" text="Intakes" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="18.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="18.0" layoutY="25.0" onMouseClicked="#intakeClickOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../asserts/dashboard/undraw_Internet_on_the_go_re_vben.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </AnchorPane>
-      <AnchorPane layoutX="761.0" layoutY="66.0" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #C0392B;">
+      <AnchorPane layoutX="761.0" layoutY="66.0" onMouseClicked="#incomeClickOnAction" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #C0392B;">
          <children>
             <Label layoutX="62.0" layoutY="142.0" text="Income" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="18.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="18.0" layoutY="31.0" onMouseClicked="#incomeClickOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../asserts/dashboard/undraw_Finance_re_gnv2.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </AnchorPane>
-      <AnchorPane layoutX="293.0" layoutY="249.0" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #487EB0;">
+      <AnchorPane layoutX="293.0" layoutY="249.0" onMouseClicked="#registrationClickOnAction" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #487EB0;">
          <children>
             <Label layoutX="49.0" layoutY="142.0" text="Registration" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="20.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="20.0" layoutY="22.0" onMouseClicked="#registrationClickOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../asserts/dashboard/undraw_Mobile_payments_re_7udl.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </AnchorPane>
-      <AnchorPane layoutX="480.0" layoutY="249.0" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #2980B9;">
+      <AnchorPane layoutX="480.0" layoutY="249.0" onMouseClicked="#reportClickOnAction" prefHeight="163.0" prefWidth="175.0" style="-fx-background-color: #2980B9;">
          <children>
             <Label layoutX="57.0" layoutY="142.0" text="Reports" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="13.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="13.0" layoutY="20.0" onMouseClicked="#reportClickOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../asserts/dashboard/undraw_Report_re_f5n5.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
          <cursor>
