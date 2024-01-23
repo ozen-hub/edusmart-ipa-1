@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="434.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.edu.controller.LoginFormController">
+<AnchorPane fx:id="loginFormContext" prefHeight="434.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.edu.controller.LoginFormController">
    <children>
       <ImageView fitHeight="434.0" fitWidth="290.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -30,14 +30,14 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Button layoutX="316.0" layoutY="217.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="425.0" style="-fx-background-color: #2980b9;" text="Sign in" textFill="WHITE">
+      <Button layoutX="316.0" layoutY="217.0" mnemonicParsing="false" onAction="#signInOnAction" prefHeight="31.0" prefWidth="425.0" style="-fx-background-color: #2980b9;" text="Sign in" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button layoutX="316.0" layoutY="305.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="425.0" style="-fx-background-color: #34495e;" text="Create an account" textFill="WHITE">
+      <Button layoutX="316.0" layoutY="305.0" mnemonicParsing="false" onAction="#createAccountOnAction" prefHeight="31.0" prefWidth="425.0" style="-fx-background-color: #34495e;" text="Create an account" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

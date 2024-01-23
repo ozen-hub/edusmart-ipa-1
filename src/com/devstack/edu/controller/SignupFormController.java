@@ -2,31 +2,27 @@ package com.devstack.edu.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
-import java.net.URL;
 
-public class LoginFormController {
-    public AnchorPane loginFormContext;
+public class SignupFormController {
+    public AnchorPane registerFormContext;
 
-    public void signInOnAction(ActionEvent actionEvent) {
+    public void signupOnAction(ActionEvent actionEvent) {
     }
 
-    public void createAccountOnAction(ActionEvent actionEvent) throws IOException {
-        setUi("SignupForm");
+    public void alreadyHaveAnAccountOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("loginForm");
     }
-
+    //=========================
     private void setUi(String location) throws IOException {
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("../view/"+location+".fxml")));
-        Stage stage = (Stage) loginFormContext.getScene().getWindow();
+        Stage stage = (Stage) registerFormContext.getScene().getWindow();
         stage.setTitle("EduSmart");
         stage.setScene(scene);
         stage.centerOnScreen();
     }
-
 }
