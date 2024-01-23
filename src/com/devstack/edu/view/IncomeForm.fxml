@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.devstack.edu.controller.IncomeFormController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="incomeFormContext" prefHeight="567.0" prefWidth="1007.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.edu.controller.IncomeFormController">
+   <children>
+      <Label layoutX="34.0" layoutY="34.0" text="Income Statistics">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="742.0" layoutY="33.0" mnemonicParsing="false" onAction="#backToHomeOnAction" style="-fx-background-color: #353B48;" text="Back to Home" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="868.0" layoutY="33.0" mnemonicParsing="false" style="-fx-background-color: #16A085;" text="Print the chart" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label layoutX="34.0" layoutY="531.0" text="Version : 1.0.0" />
+      <Label layoutX="881.0" layoutY="531.0" text="Developed by : IPS" />
+      <RadioButton layoutX="34.0" layoutY="82.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="87.0" selected="true" text="Last month" />
+      <RadioButton layoutX="130.0" layoutY="82.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="87.0" text="Today" />
+      <RadioButton layoutX="201.0" layoutY="82.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="87.0" text="All" />
+      <AreaChart layoutX="32.0" layoutY="120.0" prefHeight="400.0" prefWidth="956.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </AreaChart>
+   </children>
 </AnchorPane>
