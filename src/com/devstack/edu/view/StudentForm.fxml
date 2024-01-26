@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="studentFormContext" prefHeight="542.0" prefWidth="977.0" style="-fx-bacground-color: #353B48;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.edu.controller.StudentFormController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Student Management">
@@ -27,7 +26,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="858.0" layoutY="107.0" mnemonicParsing="false" style="-fx-background-color: #2980B9;" text="Save Student" textFill="WHITE">
+      <Button fx:id="btnSaveUpdate" layoutX="858.0" layoutY="107.0" mnemonicParsing="false" onAction="#btnSaveUpdateOnAction" style="-fx-background-color: #2980B9;" text="Save Student" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -43,7 +42,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField layoutX="14.0" layoutY="68.0" prefHeight="29.0" prefWidth="252.0" promptText="Student Name">
+      <TextField fx:id="txtStudentName" layoutX="14.0" layoutY="68.0" prefHeight="29.0" prefWidth="252.0" promptText="Student Name">
          <font>
             <Font size="13.0" />
          </font>
@@ -53,13 +52,13 @@
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="699.0" layoutY="68.0" prefHeight="29.0" prefWidth="265.0" promptText="Address">
+      <TextField fx:id="txtAddress" layoutX="699.0" layoutY="68.0" prefHeight="29.0" prefWidth="265.0" promptText="Address">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <DatePicker layoutX="518.0" layoutY="68.0" prefHeight="30.0" prefWidth="174.0" promptText="Date Of Birth" />
-      <TextField layoutX="272.0" layoutY="68.0" prefHeight="29.0" prefWidth="238.0" promptText="Email">
+      <DatePicker fx:id="dob" layoutX="518.0" layoutY="68.0" prefHeight="30.0" prefWidth="174.0" promptText="Date Of Birth" />
+      <TextField fx:id="txtEmail" layoutX="272.0" layoutY="68.0" prefHeight="29.0" prefWidth="238.0" promptText="Email">
          <font>
             <Font size="13.0" />
          </font>
