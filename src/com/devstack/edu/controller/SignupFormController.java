@@ -19,6 +19,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class SignupFormController {
+
+    public void initialize(){
+        txtFirstName.requestFocus();
+    }
+
     public AnchorPane registerFormContext;
     public TextField txtEmail;
     public PasswordField txtPassword;
