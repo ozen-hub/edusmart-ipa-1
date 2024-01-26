@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.Optional;
 
 public class StudentFormController {
     public AnchorPane studentFormContext;
@@ -34,6 +36,7 @@ public class StudentFormController {
     public TextField txtSearch;
 
     private String searchText="";
+    private int selectedStudentId=0;
 
     public void initialize(){
 
@@ -74,37 +77,76 @@ public class StudentFormController {
                 txtEmail.getText(),
                 dob.getValue(),txtAddress.getText(),true);
 
-        try{
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root","1234");
-            //3 step
-            String query = "INSERT INTO student(student_name,email,dob,address,status,user_email)" +
-                    " VALUES (?,?,?,?,?,?)";
-            //4 step
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            //5 step
-            preparedStatement.setString(1,student.getStudentName());
-            preparedStatement.setString(2,student.getEmail());
-            preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
-            preparedStatement.setString(4,student.getAddress());
-            preparedStatement.setBoolean(5, student.isStatus());
-            preparedStatement.setString(6, GlobalVar.userEmail);
+        if(btnSaveUpdate.getText().equalsIgnoreCase("Save Student")){
+            try{
+                //1 step
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                //2 step
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
+                        "root","1234");
+                //3 step
+                String query = "INSERT INTO student(student_name,email,dob,address,status,user_email)" +
+                        " VALUES (?,?,?,?,?,?)";
+                //4 step
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                //5 step
+                preparedStatement.setString(1,student.getStudentName());
+                preparedStatement.setString(2,student.getEmail());
+                preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
+                preparedStatement.setString(4,student.getAddress());
+                preparedStatement.setBoolean(5, student.isStatus());
+                preparedStatement.setString(6, GlobalVar.userEmail);
 
 
-            if(preparedStatement.executeUpdate()>0){
-                new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
-                clearFields();
-                loadStudents(searchText);
-            }else{
-                new Alert(Alert.AlertType.WARNING, "Try Again").show();
+                if(preparedStatement.executeUpdate()>0){
+                    new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
+                    clearFields();
+                    loadStudents(searchText);
+                }else{
+                    new Alert(Alert.AlertType.WARNING, "Try Again").show();
+                }
+
+            }catch (ClassNotFoundException | SQLException e){
+                new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
+                e.printStackTrace();
             }
+        }else{
+            if (selectedStudentId==0){
+                new Alert(Alert.AlertType.ERROR, "Please verify the student id").show();
+                return;
+            }
+            try{
+                //1 step
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                //2 step
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
+                        "root","1234");
+                //3 step
+                String query = "UPDATE student SET student_name=?, email=?, dob=?,address=?" +
+                        " WHERE student_id=?";
+                //4 step
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                //5 step
+                preparedStatement.setString(1,student.getStudentName());
+                preparedStatement.setString(2,student.getEmail());
+                preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
+                preparedStatement.setString(4,student.getAddress());
+                preparedStatement.setInt(5,selectedStudentId);
 
-        }catch (ClassNotFoundException | SQLException e){
-            new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
-            e.printStackTrace();
+
+                if(preparedStatement.executeUpdate()>0){
+                    new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
+                    clearFields();
+                    loadStudents(searchText);
+                    btnSaveUpdate.setText("Save Student");
+                }else{
+                    new Alert(Alert.AlertType.WARNING, "Try Again").show();
+                }
+
+            }catch (ClassNotFoundException | SQLException e){
+                new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
+                e.printStackTrace();
+            }
         }
     }
 
@@ -158,6 +200,48 @@ public class StudentFormController {
                         bar
                 );
                 tms.add(tm);
+
+                updateButton.setOnAction(e->{
+                    txtStudentName.setText(tm.getName());
+                    txtEmail.setText(tm.getEmail());
+                    dob.setValue(LocalDate.parse(tm.getDob()));
+                    txtAddress.setText(tm.getAddress());
+                    selectedStudentId=tm.getId();
+                    btnSaveUpdate.setText("Update Student");
+                });
+                deleteButton.setOnAction(e->{
+
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "are you sure?",
+                            ButtonType.YES,ButtonType.NO);
+                    Optional<ButtonType> buttonType = alert.showAndWait();
+                    if (buttonType.get()==ButtonType.YES){
+                        try{
+                            //1 step
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            //2 step
+                            Connection connection1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
+                                    "root","1234");
+                            //3 step
+                            String query1 = "DELETE FROM student WHERE student_id=?";
+                            //4 step
+                            PreparedStatement preparedStatement1 = connection1.prepareStatement(query1);
+                            //5 step
+                            preparedStatement1.setInt(1,tm.getId());
+
+
+                            if(preparedStatement1.executeUpdate()>0){
+                                new Alert(Alert.AlertType.INFORMATION, "Student was Deleted!").show();
+                                loadStudents("");
+                            }else{
+                                new Alert(Alert.AlertType.WARNING, "Try Again").show();
+                            }
+
+                        }catch (SQLException | ClassNotFoundException ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+
             }
 
             tblStudent.setItems(tms);
@@ -167,5 +251,11 @@ public class StudentFormController {
             e.printStackTrace();
         }
     }
+
+    public void btnNewStudentOnAction(ActionEvent actionEvent) {
+        clearFields();
+        selectedStudentId=0;
+        btnSaveUpdate.setText("Save Student");
     }
+}
 

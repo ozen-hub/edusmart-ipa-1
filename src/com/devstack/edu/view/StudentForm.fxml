@@ -26,7 +26,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnSaveUpdate" layoutX="858.0" layoutY="107.0" mnemonicParsing="false" onAction="#btnSaveUpdateOnAction" style="-fx-background-color: #2980B9;" text="Save Student" textFill="WHITE">
+      <Button fx:id="btnSaveUpdate" layoutX="812.0" layoutY="107.0" mnemonicParsing="false" onAction="#btnSaveUpdateOnAction" prefHeight="30.0" prefWidth="153.0" style="-fx-background-color: #2980B9;" text="Save Student" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -34,7 +34,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="845.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: #16A085;" text="+ New Student" textFill="WHITE">
+      <Button layoutX="845.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnNewStudentOnAction" style="-fx-background-color: #16A085;" text="+ New Student" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
