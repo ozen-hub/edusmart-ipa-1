@@ -57,13 +57,15 @@ public class StudentFormController {
             //5 step
             preparedStatement.setString(1,student.getStudentName());
             preparedStatement.setString(2,student.getEmail());
-            preparedStatement.setDate(3,student.getDate());
+            preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
             preparedStatement.setString(4,student.getAddress());
-            preparedStatement.setString(5, GlobalVar.userEmail);
             preparedStatement.setBoolean(5, student.isStatus());
+            preparedStatement.setString(6, GlobalVar.userEmail);
+
 
             if(preparedStatement.executeUpdate()>0){
                 new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
+                clearFields();
             }else{
                 new Alert(Alert.AlertType.WARNING, "Try Again").show();
             }
@@ -73,4 +75,14 @@ public class StudentFormController {
             e.printStackTrace();
         }
     }
+
+
+    private void clearFields(){
+       // txtAddress.setText("");
+        txtAddress.clear();
+        txtStudentName.clear();
+        txtEmail.clear();
+        dob.setValue(null);
+    }
+
 }

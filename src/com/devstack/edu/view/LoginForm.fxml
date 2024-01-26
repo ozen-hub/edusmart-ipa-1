@@ -17,11 +17,11 @@
             <Image url="@../asserts/security/login-bg.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="txtEmail" layoutX="316.0" layoutY="101.0" prefHeight="31.0" prefWidth="425.0" promptText="Root email">
+      <TextField fx:id="txtEmail" layoutX="316.0" layoutY="101.0" prefHeight="31.0" prefWidth="425.0" promptText="Root email" text="hasikasandaruwan.info@gmail.com">
          <font>
             <Font size="13.0" />
          </font></TextField>
-      <PasswordField fx:id="txtPassword" layoutX="316.0" layoutY="158.0" prefHeight="29.0" prefWidth="425.0" promptText="Password">
+      <PasswordField fx:id="txtPassword" layoutX="316.0" layoutY="158.0" prefHeight="29.0" prefWidth="425.0" promptText="Password" text="1234">
          <font>
             <Font size="13.0" />
          </font></PasswordField>

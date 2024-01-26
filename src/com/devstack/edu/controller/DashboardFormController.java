@@ -44,9 +44,11 @@ public class DashboardFormController {
     private void setUi(String location) throws IOException {
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("../view/"+location+".fxml")));
         Stage stage = (Stage) dashboardFormContext.getScene().getWindow();
-        stage.setTitle("EduSmart");
+        //stage.setTitle("EduSmart");
         stage.setScene(scene);
         stage.centerOnScreen();
     }
+
+
 
 }
