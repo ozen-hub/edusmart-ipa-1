@@ -17,12 +17,12 @@
             <Image url="@../asserts/security/login-bg.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="txtEmail" layoutX="316.0" layoutY="147.0" prefHeight="31.0" prefWidth="425.0" promptText="Root email">
+      <TextField fx:id="txtEmail" layoutX="316.0" layoutY="147.0" onAction="#emailNextOnAction" prefHeight="31.0" prefWidth="425.0" promptText="Root email">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="txtPassword" layoutX="316.0" layoutY="204.0" prefHeight="29.0" prefWidth="425.0" promptText="Password">
+      <PasswordField fx:id="txtPassword" layoutX="316.0" layoutY="204.0" onAction="#passwordNextOnAction" prefHeight="29.0" prefWidth="425.0" promptText="Password">
          <font>
             <Font size="13.0" />
          </font>
@@ -32,7 +32,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Button layoutX="316.0" layoutY="263.0" mnemonicParsing="false" onAction="#signupOnAction" prefHeight="31.0" prefWidth="425.0" style="-fx-background-color: #2980b9;" text="Sign up" textFill="WHITE">
+      <Button fx:id="btnSignup" layoutX="316.0" layoutY="263.0" mnemonicParsing="false" onAction="#signupOnAction" prefHeight="31.0" prefWidth="425.0" style="-fx-background-color: #2980b9;" text="Sign up" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -53,12 +53,12 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtFirstName" layoutX="316.0" layoutY="95.0" prefHeight="31.0" prefWidth="206.0" promptText="First Name">
+      <TextField fx:id="txtFirstName" layoutX="316.0" layoutY="95.0" onAction="#fNameNextOnAction" prefHeight="31.0" prefWidth="206.0" promptText="First Name">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtLastname" layoutX="534.0" layoutY="95.0" prefHeight="31.0" prefWidth="206.0" promptText="Last Name">
+      <TextField fx:id="txtLastname" layoutX="534.0" layoutY="95.0" onAction="#lNameNextOnAction" prefHeight="31.0" prefWidth="206.0" promptText="Last Name">
          <font>
             <Font size="13.0" />
          </font>

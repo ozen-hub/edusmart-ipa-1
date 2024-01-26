@@ -17,7 +17,7 @@
             <Image url="@../asserts/security/login-bg.jpg" />
          </image>
       </ImageView>
-      <TextField layoutX="316.0" layoutY="101.0" prefHeight="31.0" prefWidth="425.0" promptText="Root email">
+      <TextField fx:id="txtEmail" layoutX="316.0" layoutY="101.0" prefHeight="31.0" prefWidth="425.0" promptText="Root email">
          <font>
             <Font size="13.0" />
          </font></TextField>
