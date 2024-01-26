@@ -47,7 +47,7 @@
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="698.0" layoutY="168.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
+      <TextField fx:id="txtSearch" layoutX="698.0" layoutY="168.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
          <font>
             <Font size="13.0" />
          </font>
@@ -67,11 +67,11 @@
         <columns>
           <TableColumn fx:id="colId" prefWidth="109.0" text="Student id" />
           <TableColumn fx:id="colName" prefWidth="128.0" text="Student Name" />
-            <TableColumn fx:id="colEmail" prefWidth="174.0" text="Email" />
-            <TableColumn fx:id="colDob" prefWidth="139.0" text="Date of Birth" />
-            <TableColumn fx:id="colAddress" prefWidth="132.0" text="Address" />
-            <TableColumn fx:id="colStatus" prefWidth="127.0" text="Student State" />
-            <TableColumn fx:id="colOptions" prefWidth="135.0" text="Operation" />
+            <TableColumn fx:id="colEmail" prefWidth="139.0" text="Email" />
+            <TableColumn fx:id="colDob" prefWidth="99.0" text="Date of Birth" />
+            <TableColumn fx:id="colAddress" prefWidth="141.0" text="Address" />
+            <TableColumn fx:id="colStatus" prefWidth="99.0" text="Student State" />
+            <TableColumn fx:id="colOptions" prefWidth="229.0" text="Operation" />
         </columns>
       </TableView>
       <Label layoutX="14.0" layoutY="511.0" text="Version : 1.0.0" />

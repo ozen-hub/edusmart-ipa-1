@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -30,8 +31,31 @@ public class StudentFormController {
     public TableColumn colAddress;
     public TableColumn colStatus;
     public TableColumn colOptions;
+    public TextField txtSearch;
 
     private String searchText="";
+
+    public void initialize(){
+
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colDob.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colOptions.setCellValueFactory(new PropertyValueFactory<>("buttonBar"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        loadStudents(searchText);
+
+
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchText=newValue;
+            if (newValue != null) {
+                loadStudents(searchText);
+            }
+
+        });
+    }
 
     public void backToHomeOnAction(ActionEvent actionEvent) throws IOException {
         setUi("DashboardForm");
@@ -121,6 +145,7 @@ public class StudentFormController {
                 Button updateButton = new Button("Update");
 
                 ButtonBar bar = new ButtonBar();
+                bar.getButtons().addAll(deleteButton,updateButton);
 
 
                 StudentTm tm = new StudentTm(
@@ -130,21 +155,12 @@ public class StudentFormController {
                         resultSet.getString(4),
                         resultSet.getString(5),
                         resultSet.getBoolean(6),
-                        deleteButton,
-                        updateButton
+                        bar
                 );
                 tms.add(tm);
             }
 
             tblStudent.setItems(tms);
-
-            if(>0){
-                new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
-                clearFields();
-                loadStudents(searchText);
-            }else{
-                new Alert(Alert.AlertType.WARNING, "Try Again").show();
-            }
 
         }catch (ClassNotFoundException | SQLException e){
             new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
@@ -153,4 +169,3 @@ public class StudentFormController {
     }
     }
 
-}
