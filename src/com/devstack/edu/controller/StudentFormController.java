@@ -34,11 +34,16 @@ public class StudentFormController {
     public TableColumn colStatus;
     public TableColumn colOptions;
     public TextField txtSearch;
+    public RadioButton rBtnActive;
+    public Label lblStatus;
+    public RadioButton rBtnInActive;
 
     private String searchText="";
     private int selectedStudentId=0;
 
     public void initialize(){
+
+        manageStatusVisibility(false);
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -58,6 +63,12 @@ public class StudentFormController {
             }
 
         });
+    }
+
+    private void manageStatusVisibility(boolean status) {
+        lblStatus.setVisible(status);
+        rBtnActive.setVisible(status);
+        rBtnInActive.setVisible(status);
     }
 
     public void backToHomeOnAction(ActionEvent actionEvent) throws IOException {
@@ -122,7 +133,7 @@ public class StudentFormController {
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
                         "root","1234");
                 //3 step
-                String query = "UPDATE student SET student_name=?, email=?, dob=?,address=?" +
+                String query = "UPDATE student SET student_name=?, email=?, dob=?,address=?, status=?" +
                         " WHERE student_id=?";
                 //4 step
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -131,13 +142,15 @@ public class StudentFormController {
                 preparedStatement.setString(2,student.getEmail());
                 preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
                 preparedStatement.setString(4,student.getAddress());
-                preparedStatement.setInt(5,selectedStudentId);
+                preparedStatement.setBoolean(5,rBtnActive.isSelected());
+                preparedStatement.setInt(6,selectedStudentId);
 
 
                 if(preparedStatement.executeUpdate()>0){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
                     clearFields();
                     loadStudents(searchText);
+                    manageStatusVisibility(false);
                     btnSaveUpdate.setText("Save Student");
                 }else{
                     new Alert(Alert.AlertType.WARNING, "Try Again").show();
@@ -196,7 +209,7 @@ public class StudentFormController {
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getString(5),
-                        resultSet.getBoolean(6),
+                        resultSet.getBoolean(6)?"Active":"InActive",
                         bar
                 );
                 tms.add(tm);
@@ -207,6 +220,14 @@ public class StudentFormController {
                     dob.setValue(LocalDate.parse(tm.getDob()));
                     txtAddress.setText(tm.getAddress());
                     selectedStudentId=tm.getId();
+                    //==========================
+                    if (tm.isStatus().equals("Active")){
+                        rBtnActive.setSelected(true);
+                    }else{
+                        rBtnInActive.setSelected(true);
+                    }
+                    manageStatusVisibility(true);
+                    //==========================
                     btnSaveUpdate.setText("Update Student");
                 });
                 deleteButton.setOnAction(e->{

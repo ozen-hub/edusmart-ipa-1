@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="trainersFormOnAction" prefHeight="551.0" prefWidth="988.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.edu.controller.TrainersFormController">
    <children>
       <Label layoutX="24.0" layoutY="24.0" text="Trainer Management">
@@ -26,7 +25,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="830.0" layoutY="117.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #2980B9;" text="Save Trainer" textFill="WHITE">
+      <Button fx:id="btnSaveUpdate" layoutX="808.0" layoutY="117.0" mnemonicParsing="false" onAction="#saveTrainerOnAction" prefHeight="30.0" prefWidth="166.0" style="-fx-background-color: #2980B9;" text="Save Trainer" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -34,7 +33,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="858.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-color: #16A085;" text="+ New Trainer" textFill="WHITE">
+      <Button layoutX="858.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnNewTrainerOnAction" style="-fx-background-color: #16A085;" text="+ New Trainer" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -42,41 +41,41 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField layoutX="24.0" layoutY="78.0" prefHeight="29.0" prefWidth="252.0" promptText="Trainer Name">
+      <TextField fx:id="txtTrainerName" layoutX="24.0" layoutY="78.0" prefHeight="29.0" prefWidth="252.0" promptText="Trainer Name">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="708.0" layoutY="178.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
+      <TextField fx:id="txtSearch" layoutX="708.0" layoutY="178.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="709.0" layoutY="78.0" prefHeight="29.0" prefWidth="265.0" promptText="Address">
+      <TextField fx:id="txtTrainerAddress" layoutX="709.0" layoutY="78.0" prefHeight="29.0" prefWidth="265.0" promptText="Address">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="282.0" layoutY="78.0" prefHeight="29.0" prefWidth="238.0" promptText="Email">
+      <TextField fx:id="txtTrainerEmail" layoutX="282.0" layoutY="78.0" prefHeight="29.0" prefWidth="238.0" promptText="Email">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TableView layoutX="26.0" layoutY="222.0" prefHeight="287.0" prefWidth="945.0">
+      <TableView fx:id="tblTrainers" layoutX="26.0" layoutY="222.0" prefHeight="287.0" prefWidth="945.0">
          <columns>
-            <TableColumn prefWidth="109.0" text="Trainer id" />
-            <TableColumn prefWidth="128.0" text="Trainer Name" />
-            <TableColumn prefWidth="174.0" text="Email" />
-            <TableColumn prefWidth="139.0" text="Nic" />
-            <TableColumn prefWidth="132.0" text="Address" />
-            <TableColumn prefWidth="127.0" text="Student State" />
-            <TableColumn prefWidth="135.0" text="Operation" />
+            <TableColumn fx:id="colTrainerId" prefWidth="109.0" text="Trainer id" />
+            <TableColumn fx:id="colTrainerName" prefWidth="96.0" text="Trainer Name" />
+            <TableColumn fx:id="colEmail" prefWidth="135.0" text="Email" />
+            <TableColumn fx:id="colNic" prefWidth="144.0" text="Nic" />
+            <TableColumn fx:id="colAddress" prefWidth="134.0" text="Address" />
+            <TableColumn fx:id="colTrainerState" prefWidth="122.0" text="Trainer State" />
+            <TableColumn fx:id="colOperation" prefWidth="204.0" text="Operation" />
          </columns>
       </TableView>
       <Label layoutX="24.0" layoutY="521.0" text="Version : 1.0.0" />
       <Separator layoutX="21.0" layoutY="163.0" prefHeight="0.0" prefWidth="954.0" />
       <Label layoutX="871.0" layoutY="521.0" text="Developed by : IPS" />
-      <TextField layoutX="527.0" layoutY="78.0" prefHeight="29.0" prefWidth="178.0" promptText="Nic">
+      <TextField fx:id="txtTrainerNic" layoutX="527.0" layoutY="78.0" prefHeight="29.0" prefWidth="178.0" promptText="Nic">
          <font>
             <Font size="13.0" />
          </font>

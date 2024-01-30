@@ -19,7 +19,7 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button layoutX="742.0" layoutY="33.0" mnemonicParsing="false" onAction="#backToHomeOnAction" style="-fx-background-color: #353B48;" text="Back to Home" textFill="WHITE">
+      <Button layoutX="882.0" layoutY="33.0" mnemonicParsing="false" onAction="#backToHomeOnAction" style="-fx-background-color: #353B48;" text="Back to Home" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -27,7 +27,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="31.0" layoutY="269.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #2980B9;" text="Save Program" textFill="WHITE">
+      <Button layoutX="31.0" layoutY="269.0" mnemonicParsing="false" onAction="#btnSaveProgramOnAction" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #2980B9;" text="Save Program" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -35,53 +35,40 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="868.0" layoutY="33.0" mnemonicParsing="false" style="-fx-background-color: #16A085;" text="+ New Program" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <TextField layoutX="34.0" layoutY="88.0" prefHeight="29.0" prefWidth="252.0" promptText="Trainer Name">
+      <TextField fx:id="txtSearch" layoutX="718.0" layoutY="320.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="718.0" layoutY="320.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
+      <TextField fx:id="txtContent" layoutX="586.0" layoutY="88.0" prefHeight="29.0" prefWidth="407.0" promptText="Program Content">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="586.0" layoutY="88.0" prefHeight="29.0" prefWidth="407.0" promptText="Program Content">
+      <TextField fx:id="txtHours" layoutX="292.0" layoutY="88.0" prefHeight="29.0" prefWidth="276.0" promptText="Hours">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="292.0" layoutY="88.0" prefHeight="29.0" prefWidth="238.0" promptText="Hours">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TableView layoutX="36.0" layoutY="362.0" prefHeight="287.0" prefWidth="945.0">
+      <TableView fx:id="tblPrograms" layoutX="36.0" layoutY="362.0" prefHeight="287.0" prefWidth="945.0">
          <columns>
-            <TableColumn prefWidth="109.0" text="Trainer id" />
-            <TableColumn prefWidth="190.0" text="Program" />
-            <TableColumn prefWidth="208.0" text="Hours" />
-            <TableColumn prefWidth="139.0" text="Amount" />
-            <TableColumn prefWidth="298.0" text="Operation" />
+            <TableColumn fx:id="colTraineriD" prefWidth="109.0" text="Trainer id" />
+            <TableColumn fx:id="ColProgramName" prefWidth="190.0" text="Program" />
+            <TableColumn fx:id="colHours" prefWidth="208.0" text="Hours" />
+            <TableColumn fx:id="colAmount" prefWidth="139.0" text="Amount" />
+            <TableColumn fx:id="colOperation" prefWidth="298.0" text="Operation" />
          </columns>
       </TableView>
       <Label layoutX="34.0" layoutY="661.0" text="Version : 1.0.0" />
       <Separator layoutX="31.0" layoutY="305.0" prefHeight="0.0" prefWidth="954.0" />
       <Label layoutX="881.0" layoutY="661.0" text="Developed by : IPS" />
-      <TextField layoutX="292.0" layoutY="128.0" prefHeight="29.0" prefWidth="238.0" promptText="Program Amount">
+      <TextField fx:id="txtAmount" layoutX="34.0" layoutY="132.0" prefHeight="29.0" prefWidth="252.0" promptText="Program Amount">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <ComboBox layoutX="35.0" layoutY="127.0" prefHeight="30.0" prefWidth="252.0" promptText="Trainer" />
+      <ComboBox fx:id="cmbTrainer" layoutX="35.0" layoutY="87.0" prefHeight="30.0" prefWidth="252.0" promptText="Trainer" />
       <Separator layoutX="575.0" layoutY="88.0" orientation="VERTICAL" prefHeight="144.0" prefWidth="6.0" />
-      <ListView layoutX="586.0" layoutY="132.0" prefHeight="167.0" prefWidth="407.0" />
+      <ListView fx:id="lstContent" layoutX="586.0" layoutY="132.0" prefHeight="167.0" prefWidth="407.0" />
    </children>
 </AnchorPane>

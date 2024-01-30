@@ -1,36 +1,34 @@
 package com.devstack.edu.view.tm;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 
-
-public class StudentTm {
-    private int id;
+public class TrainerTm {
+    private long id;
     private String name;
     private String email;
-    private String dob;
+    private String nic;
     private String address;
     private String status;
     private ButtonBar buttonBar;
 
-    public StudentTm() {
+    public TrainerTm() {
     }
 
-    public StudentTm(int id, String name, String email, String dob, String address, String status, ButtonBar buttonBar) {
+    public TrainerTm(long id, String name, String email, String nic, String address, String status, ButtonBar buttonBar) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.dob = dob;
+        this.nic = nic;
         this.address = address;
         this.status = status;
         this.buttonBar = buttonBar;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -50,12 +48,12 @@ public class StudentTm {
         this.email = email;
     }
 
-    public String getDob() {
-        return dob;
+    public String getNic() {
+        return nic;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setNic(String nic) {
+        this.nic = nic;
     }
 
     public String getAddress() {
@@ -66,7 +64,7 @@ public class StudentTm {
         this.address = address;
     }
 
-    public String isStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -80,18 +78,5 @@ public class StudentTm {
 
     public void setButtonBar(ButtonBar buttonBar) {
         this.buttonBar = buttonBar;
-    }
-
-    @Override
-    public String toString() {
-        return "StudentTm{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", dob='" + dob + '\'' +
-                ", address='" + address + '\'' +
-                ", status=" + status +
-                ", buttonBar=" + buttonBar +
-                '}';
     }
 }
