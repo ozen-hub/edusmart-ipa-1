@@ -21,7 +21,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="838.0" layoutY="17.0" mnemonicParsing="false" text="Make a backup" />
+      <Button layoutX="838.0" layoutY="17.0" mnemonicParsing="false" onAction="#makeBackupOnAction" text="Make a backup" />
       <Label fx:id="lblDate" layoutX="743.0" layoutY="21.0" prefHeight="17.0" prefWidth="80.0">
          <font>
             <Font name="System Bold" size="12.0" />
