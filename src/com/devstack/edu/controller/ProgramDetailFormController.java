@@ -9,6 +9,9 @@ import java.sql.*;
 public class ProgramDetailFormController {
     public ListView<String> lstData;
 
+    // SELECT p.*,pc.* from program p INNER JOIN program_content pc ON p.program_id=pc.program_program_id;
+    // SELECT pc.* from program_content pc WHERE pc.program_program_id=?;
+
     public void setId(Long id){
         try{
             //1 step
