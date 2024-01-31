@@ -1,6 +1,7 @@
 package com.devstack.edu.controller;
 
 import com.devstack.edu.util.GlobalVar;
+import com.devstack.edu.util.PasswordManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,20 +30,30 @@ public class LoginFormController {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
                     "root","1234");
             //3 step
-            String query = "SELECT email FROM user WHERE email=? AND password=?";
+            String query = "SELECT email,password FROM user WHERE email=?";
             //4 step
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             //5 step
             preparedStatement.setString(1,txtEmail.getText());
-            preparedStatement.setString(2,txtPassword.getText());
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
-                GlobalVar.userEmail= resultSet.getString(1);
-                setUi("DashboardForm");
-                return;
+
+                if (PasswordManager.checkPw(txtPassword.getText(),
+                        resultSet.getString(2))){
+                    GlobalVar.userEmail= resultSet.getString(1);
+                    setUi("DashboardForm");
+                    return;
+                }else{
+                    new Alert(Alert.AlertType.WARNING, "password wrong").show();
+                }
+
+
+
+            }else{
+                new Alert(Alert.AlertType.WARNING, "user not found").show();
             }
-            new Alert(Alert.AlertType.WARNING, "password or emails is wrong").show();
+
 
         }catch (ClassNotFoundException | SQLException e){
             new Alert(Alert.AlertType.ERROR, "Something went wrong").show();

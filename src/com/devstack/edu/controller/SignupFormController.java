@@ -2,6 +2,7 @@ package com.devstack.edu.controller;
 
 import com.devstack.edu.model.User;
 import com.devstack.edu.util.GlobalVar;
+import com.devstack.edu.util.PasswordManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -54,7 +55,7 @@ public class SignupFormController {
             preparedStatement.setString(1,user.getRootEmail());
             preparedStatement.setString(2,user.getFirstName());
             preparedStatement.setString(3,user.getLastname());
-            preparedStatement.setString(4,user.getPassword());
+            preparedStatement.setString(4, PasswordManager.encrypt(user.getPassword()));
             preparedStatement.setBoolean(5,true);
 
             if(preparedStatement.executeUpdate()>0){
