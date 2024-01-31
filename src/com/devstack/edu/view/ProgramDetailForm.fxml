@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.edu.controller.ProgramDetailFormController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Program Details">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="369.0" text="Version : 1.0.0" />
+      <Label layoutX="264.0" layoutY="368.0" text="Developed By : IPS" />
+      <ListView fx:id="lstData" layoutX="14.0" layoutY="55.0" prefHeight="305.0" prefWidth="350.0" />
+   </children>
+</AnchorPane>

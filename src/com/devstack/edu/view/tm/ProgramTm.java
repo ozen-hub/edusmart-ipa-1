@@ -1,6 +1,7 @@
 package com.devstack.edu.view.tm;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 
 public class ProgramTm {
     private long programId;
@@ -8,12 +9,12 @@ public class ProgramTm {
     private String program;
     private int hours;
     private double amount;
-    private Button operation;
+    private ButtonBar operation;
 
     public ProgramTm() {
     }
 
-    public ProgramTm(long programId, long trainerId, String program, int hours, double amount, Button operation) {
+    public ProgramTm(long programId, long trainerId, String program, int hours, double amount, ButtonBar operation) {
         this.programId = programId;
         this.trainerId = trainerId;
         this.program = program;
@@ -62,11 +63,11 @@ public class ProgramTm {
         this.amount = amount;
     }
 
-    public Button getOperation() {
+    public ButtonBar getOperation() {
         return operation;
     }
 
-    public void setOperation(Button operation) {
+    public void setOperation(ButtonBar operation) {
         this.operation = operation;
     }
 

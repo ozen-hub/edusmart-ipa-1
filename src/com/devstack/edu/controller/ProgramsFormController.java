@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -183,6 +184,10 @@ public class ProgramsFormController {
             while (resultSet.next()) {
 
                 Button deleteButton = new Button("Delete");
+                Button showMoreButton = new Button("Show");
+
+                ButtonBar bar = new ButtonBar();
+                bar.getButtons().addAll(deleteButton,showMoreButton);
 
                 ProgramTm tm = new ProgramTm(
                         resultSet.getLong("program_id"),
@@ -190,9 +195,31 @@ public class ProgramsFormController {
                         resultSet.getString("program_name"),
                         resultSet.getInt("hours"),
                         resultSet.getDouble("amount"),
-                       deleteButton
+                        bar
                 );
                 tms.add(tm);
+
+                showMoreButton.setOnAction(e->{
+                    try{
+                       /* Parent parent = FXMLLoader.load(getClass().getResource("../view/ProgramDetailForm.fxml"));
+                        Scene scene = new Scene(parent);
+                        Stage stage= new Stage();
+                        stage.setScene(scene);
+                        stage.show();*/
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/ProgramDetailForm.fxml"));
+                        Parent parent = loader.load();
+                        ProgramDetailFormController controller = loader.getController();
+                        controller.setId(tm.getProgramId());
+                        Scene scene = new Scene(parent);
+                        Stage stage= new Stage();
+                        stage.setScene(scene);
+                        stage.show();
+
+                    }catch (IOException exception){
+
+                    }
+
+                });
 
                 deleteButton.setOnAction(e->{
 
