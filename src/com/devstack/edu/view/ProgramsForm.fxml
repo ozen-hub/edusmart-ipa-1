@@ -40,7 +40,7 @@
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtContent" layoutX="586.0" layoutY="88.0" prefHeight="29.0" prefWidth="407.0" promptText="Program Content">
+      <TextField fx:id="txtContent" layoutX="586.0" layoutY="88.0" onAction="#txtContentOnAction" prefHeight="29.0" prefWidth="407.0" promptText="Program Content">
          <font>
             <Font size="13.0" />
          </font>
@@ -70,5 +70,10 @@
       <ComboBox fx:id="cmbTrainer" layoutX="35.0" layoutY="87.0" prefHeight="30.0" prefWidth="252.0" promptText="Trainer" />
       <Separator layoutX="575.0" layoutY="88.0" orientation="VERTICAL" prefHeight="144.0" prefWidth="6.0" />
       <ListView fx:id="lstContent" layoutX="586.0" layoutY="132.0" prefHeight="167.0" prefWidth="407.0" />
+      <TextField fx:id="txtProgramName" layoutX="292.0" layoutY="132.0" prefHeight="29.0" prefWidth="276.0" promptText="Program Name">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>
