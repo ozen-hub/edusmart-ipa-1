@@ -27,7 +27,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="840.0" layoutY="127.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #2980B9;" text="Save Intake" textFill="WHITE">
+      <Button fx:id="btnSaveIntake" layoutX="840.0" layoutY="127.0" mnemonicParsing="false" onAction="#btnSaveIntakeOnAction" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #2980B9;" text="Save Intake" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -35,7 +35,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="874.0" layoutY="33.0" mnemonicParsing="false" style="-fx-background-color: #16A085;" text="+ New Intake" textFill="WHITE">
+      <Button layoutX="874.0" layoutY="33.0" mnemonicParsing="false" onAction="#btnNewIntakeOnAction" style="-fx-background-color: #16A085;" text="+ New Intake" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -43,29 +43,29 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField layoutX="34.0" layoutY="88.0" prefHeight="29.0" prefWidth="252.0" promptText="Trainer Name">
+      <TextField fx:id="txtIntakeName" layoutX="34.0" layoutY="88.0" prefHeight="29.0" prefWidth="252.0" promptText="Intake Name">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="718.0" layoutY="188.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
+      <TextField fx:id="txtSearchHere" layoutX="718.0" layoutY="188.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TableView layoutX="36.0" layoutY="232.0" prefHeight="287.0" prefWidth="945.0">
+      <TableView fx:id="tblIntakes" layoutX="36.0" layoutY="232.0" prefHeight="287.0" prefWidth="945.0">
          <columns>
-            <TableColumn prefWidth="109.0" text="Íntake id" />
-            <TableColumn prefWidth="128.0" text="Program" />
-            <TableColumn prefWidth="174.0" text="Intake Name" />
-            <TableColumn prefWidth="251.0" text="Start Date" />
-            <TableColumn prefWidth="281.0" text="Operation" />
+            <TableColumn fx:id="colIntakeId" prefWidth="109.0" text="Íntake id" />
+            <TableColumn fx:id="colProgram" prefWidth="128.0" text="Program" />
+            <TableColumn fx:id="colIntakeName" prefWidth="174.0" text="Intake Name" />
+            <TableColumn fx:id="colStartDate" prefWidth="251.0" text="Start Date" />
+            <TableColumn fx:id="colOperation" prefWidth="281.0" text="Operation" />
          </columns>
       </TableView>
       <Label layoutX="34.0" layoutY="531.0" text="Version : 1.0.0" />
       <Separator layoutX="31.0" layoutY="173.0" prefHeight="0.0" prefWidth="954.0" />
       <Label layoutX="881.0" layoutY="531.0" text="Developed by : IPS" />
-      <ComboBox layoutX="295.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Program" />
-      <DatePicker layoutX="536.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Start date" />
+      <ComboBox fx:id="cmbProgram" layoutX="295.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Program" />
+      <DatePicker fx:id="dpStartDate" layoutX="536.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Start date" />
    </children>
 </AnchorPane>
