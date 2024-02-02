@@ -64,7 +64,14 @@ public class IncomeFormController {
             series.getData().add(new XYChart.Data<>(e.getDate().toString(),e.getAmount()));
         });
 
+
+
         lineChart.getData().add(series);
+
+        AnchorPane.setTopAnchor(lineChart, 0.0);
+        AnchorPane.setRightAnchor(lineChart, 0.0);
+        AnchorPane.setLeftAnchor(lineChart, 0.0);
+        AnchorPane.setBottomAnchor(lineChart, 0.0);
 
         chart.getChildren().add(lineChart);
     }
