@@ -18,7 +18,7 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button layoutX="709.0" layoutY="33.0" mnemonicParsing="false" onAction="#backToHomeOnAction" style="-fx-background-color: #353B48;" text="Back to Home" textFill="WHITE">
+      <Button layoutX="869.0" layoutY="33.0" mnemonicParsing="false" onAction="#backToHomeOnAction" style="-fx-background-color: #353B48;" text="Back to Home" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -26,7 +26,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="840.0" layoutY="127.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #2980B9;" text="Register" textFill="WHITE">
+      <Button layoutX="840.0" layoutY="127.0" mnemonicParsing="false" onAction="#btnRegisterOnAction" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #2980B9;" text="Register" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -34,37 +34,25 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="835.0" layoutY="33.0" mnemonicParsing="false" style="-fx-background-color: #16A085;" text="+ New Registration" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <TextField layoutX="34.0" layoutY="88.0" prefHeight="29.0" prefWidth="252.0" promptText="Search Student">
+      <TextField fx:id="txtSearch" layoutX="718.0" layoutY="188.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField layoutX="718.0" layoutY="188.0" prefHeight="29.0" prefWidth="265.0" promptText="Search here">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TableView layoutX="36.0" layoutY="232.0" prefHeight="287.0" prefWidth="945.0">
+      <TableView fx:id="tblRegistrations" layoutX="36.0" layoutY="232.0" prefHeight="287.0" prefWidth="945.0">
          <columns>
-            <TableColumn prefWidth="109.0" text="Intake id" />
-            <TableColumn prefWidth="128.0" text="Program" />
-            <TableColumn prefWidth="268.0" text="Student Name" />
-            <TableColumn prefWidth="219.0" text="Register Date" />
-            <TableColumn prefWidth="220.0" text="Operation" />
+            <TableColumn fx:id="colIntakeId" prefWidth="109.0" text="Intake id" />
+            <TableColumn fx:id="colProgram" prefWidth="128.0" text="Program" />
+            <TableColumn fx:id="colStudentName" prefWidth="268.0" text="Student Name" />
+            <TableColumn fx:id="colRegisterDate" prefWidth="219.0" text="Register Date" />
+            <TableColumn fx:id="colOperation" prefWidth="220.0" text="Operation" />
          </columns>
       </TableView>
       <Label layoutX="34.0" layoutY="531.0" text="Version : 1.0.0" />
       <Separator layoutX="31.0" layoutY="173.0" prefHeight="0.0" prefWidth="954.0" />
       <Label layoutX="881.0" layoutY="531.0" text="Developed by : IPS" />
-      <ComboBox layoutX="294.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Program" />
-      <ComboBox layoutX="534.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Intake" />
+      <ComboBox fx:id="cmbProgram" layoutX="294.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Program" />
+      <ComboBox fx:id="cmbIntake" layoutX="534.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Intake" />
+      <TextField layoutX="31.0" layoutY="89.0" prefHeight="30.0" prefWidth="254.0" promptText="Search here" />
    </children>
 </AnchorPane>

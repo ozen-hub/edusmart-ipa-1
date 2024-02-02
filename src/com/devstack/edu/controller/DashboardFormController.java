@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,6 +50,7 @@ public class DashboardFormController {
         lblDate.setText(simpleDateFormat.format(date));
 
     }
+
 
 
     public void studentClickOnAction(MouseEvent mouseEvent) throws IOException {
@@ -90,7 +95,6 @@ public class DashboardFormController {
         String userName="root";
         String password="1234";
         String database="edusmart";
-
 
         try{
             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("yyyyMMdd");
