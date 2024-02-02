@@ -1,5 +1,8 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.db.DbConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +13,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class IncomeFormController {
     public AnchorPane incomeFormContext;
@@ -20,6 +27,27 @@ public class IncomeFormController {
     }
 
     private void loadChart() {
+
+        try{
+            Connection connection = DbConnection.getInstance().getConnection();
+            //3 step
+            String query = "";
+            //4 step
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            //5 step
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ObservableList<String> obList = FXCollections.observableArrayList();
+            while (resultSet.next()){
+                obList.add(resultSet.getString(2));
+            }
+
+
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
 
