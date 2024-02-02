@@ -53,6 +53,6 @@
       <Label layoutX="881.0" layoutY="531.0" text="Developed by : IPS" />
       <ComboBox fx:id="cmbProgram" layoutX="294.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Program" />
       <ComboBox fx:id="cmbIntake" layoutX="534.0" layoutY="88.0" prefHeight="30.0" prefWidth="234.0" promptText="Intake" />
-      <TextField layoutX="31.0" layoutY="89.0" prefHeight="30.0" prefWidth="254.0" promptText="Search here" />
+      <TextField fx:id="txtStudent" layoutX="31.0" layoutY="89.0" prefHeight="30.0" prefWidth="254.0" promptText="Search here" />
    </children>
 </AnchorPane>

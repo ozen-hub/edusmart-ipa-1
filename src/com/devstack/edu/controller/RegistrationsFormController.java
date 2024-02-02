@@ -12,9 +12,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class RegistrationsFormController {
     public AnchorPane registrationFormContext;
@@ -27,6 +29,7 @@ public class RegistrationsFormController {
     public TableColumn colOperation;
     public ComboBox<String> cmbProgram;
     public ComboBox<String> cmbIntake;
+    public TextField txtStudent;
 
     public void initialize(){
         loadAllPrograms();
@@ -35,6 +38,31 @@ public class RegistrationsFormController {
         cmbProgram.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue!=null) loadAllIntakes(Long.parseLong(newValue.split("->")[0]));
         });// 1->IPS
+        manageAutoComplete();
+    }
+
+    private void manageAutoComplete(){
+        ArrayList<String> data = new ArrayList<>();
+
+
+        try{
+            Connection connection = DbConnection.getInstance().getConnection();
+            //3 step
+            String query = "SELECT email FROM student";
+            //4 step
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                data.add(resultSet.getString(1));
+            }
+
+            TextFields.bindAutoCompletion(txtStudent,data);
+
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     private void loadAllIntakes(long id) {
@@ -92,5 +120,6 @@ public class RegistrationsFormController {
     }
 
     public void btnRegisterOnAction(ActionEvent actionEvent) {
+
     }
 }
