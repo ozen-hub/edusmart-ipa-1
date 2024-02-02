@@ -1,5 +1,6 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.model.Student;
 import com.devstack.edu.model.Trainer;
 import com.devstack.edu.util.GlobalVar;
@@ -66,11 +67,7 @@ public class TrainersFormController {
         searchText="%"+searchText+"%";
 
         try{
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root","1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "SELECT * FROM trainer WHERE trainer_name LIKE ? OR trainer_email LIKE ?";
             //4 step
@@ -118,11 +115,7 @@ public class TrainersFormController {
                     Optional<ButtonType> buttonType = alert.showAndWait();
                     if (buttonType.get()==ButtonType.YES){
                         try{
-                            //1 step
-                            Class.forName("com.mysql.cj.jdbc.Driver");
-                            //2 step
-                            Connection connection1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                                    "root","1234");
+                            Connection connection1 = DbConnection.getInstance().getConnection();
                             //3 step
                             String query1 = "DELETE FROM trainer WHERE trainer_id=?";
                             //4 step
@@ -172,11 +165,7 @@ public class TrainersFormController {
 
         if(btnSaveUpdate.getText().equalsIgnoreCase("Save Trainer")){
             try{
-                //1 step
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                //2 step
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                        "root","1234");
+                Connection connection = DbConnection.getInstance().getConnection();
                 //3 step
                 String query = "INSERT INTO trainer(trainer_name,trainer_email,nic,address,trainer_status)" +
                         " VALUES (?,?,?,?,?)";
@@ -208,11 +197,7 @@ public class TrainersFormController {
                 return;
             }
             try{
-                //1 step
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                //2 step
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                        "root","1234");
+                Connection connection = DbConnection.getInstance().getConnection();
                 //3 step
                 String query = "UPDATE trainer SET trainer_name=?, trainer_email=?, nic=?,address=?" +
                         " WHERE trainer_id=?";

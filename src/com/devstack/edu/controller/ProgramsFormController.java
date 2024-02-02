@@ -1,5 +1,6 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.model.Program;
 import com.devstack.edu.model.ProgramContent;
 import com.devstack.edu.util.GlobalVar;
@@ -115,10 +116,7 @@ public class ProgramsFormController {
 
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root", "1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "INSERT INTO program(hours,program_name,amount,user_email,trainer_trainer_id) VALUES(?,?,?,?,?)";
             //4 step
@@ -165,11 +163,7 @@ public class ProgramsFormController {
         searchText="%"+searchText+"%";
         try{
 
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root","1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "SELECT * FROM program WHERE program_name LIKE ?";
             //4 step
@@ -228,11 +222,7 @@ public class ProgramsFormController {
                     Optional<ButtonType> buttonType = alert.showAndWait();
                     if (buttonType.get()==ButtonType.YES){
                         try{
-                            //1 step
-                            Class.forName("com.mysql.cj.jdbc.Driver");
-                            //2 step
-                            Connection connection1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                                    "root","1234");
+                            Connection connection1 = DbConnection.getInstance().getConnection();
                             //3 step
                             String query1 = "DELETE FROM program WHERE program_id=?";
                             //4 step

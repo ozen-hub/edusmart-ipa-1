@@ -1,5 +1,6 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.model.Intake;
 import com.devstack.edu.view.tm.IntakeTm;
 import javafx.collections.FXCollections;
@@ -45,11 +46,9 @@ public class IntakesFormController {
 
     private void loadAllPrograms() {
         try {
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
+
             //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root", "1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "SELECT program_id,program_name FROM program";
             //4 step
@@ -94,10 +93,7 @@ public class IntakesFormController {
 
         try {
             //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root", "1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "INSERT INTO intake(intake_name,start_date,program_program_id) VALUES(?,?,?)";
             //4 step
@@ -130,10 +126,7 @@ public class IntakesFormController {
     private void loadAllIntakes() {
         try {
             //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root", "1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "SELECT p.program_name,i.intake_id,i.intake_name,i.start_date FROM intake i INNER JOIN program p ON i.program_program_id=p.program_id";
             //4 step

@@ -1,5 +1,6 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.db.DbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,11 +39,7 @@ public class RegistrationsFormController {
 
     private void loadAllIntakes(long id) {
         try{
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root","1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "SELECT i.intake_id,i.intake_name FROM intake i WHERE i.program_program_id=?";
             //4 step
@@ -64,11 +61,7 @@ public class RegistrationsFormController {
 
     private void loadAllPrograms() {
         try{
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root","1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "SELECT program_id,program_name FROM program";
             //4 step

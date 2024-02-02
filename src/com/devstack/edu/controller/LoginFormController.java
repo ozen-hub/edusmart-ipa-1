@@ -1,5 +1,6 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.util.GlobalVar;
 import com.devstack.edu.util.PasswordManager;
 import javafx.event.ActionEvent;
@@ -24,11 +25,7 @@ public class LoginFormController {
 
     public void signInOnAction(ActionEvent actionEvent) throws IOException {
         try{
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root","1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "SELECT email,password FROM user WHERE email=?";
             //4 step

@@ -1,5 +1,6 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.model.User;
 import com.devstack.edu.util.GlobalVar;
 import com.devstack.edu.util.PasswordManager;
@@ -42,11 +43,7 @@ public class SignupFormController {
         );
 
         try{
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root","1234");
+            Connection connection = DbConnection.getInstance().getConnection();
             //3 step
             String query = "INSERT INTO user VALUES (?,?,?,?,?)";
             //4 step
