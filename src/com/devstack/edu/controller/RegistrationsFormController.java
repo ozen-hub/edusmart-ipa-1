@@ -1,6 +1,7 @@
 package com.devstack.edu.controller;
 
 import com.devstack.edu.db.DbConnection;
+import com.devstack.edu.model.Payment;
 import com.devstack.edu.model.Registration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -140,9 +141,67 @@ public class RegistrationsFormController {
 
         boolean isSaved = saveRegistration(registration);
         if(isSaved){
-            savePayment();
+
+            Long registerId = findRegistration(registration);
+            if (registerId==0){
+                new Alert(Alert.AlertType.WARNING,"Registration is not found!").show();
+                return;
+            }
+            Payment payment = new Payment(
+                    0,LocalDate.now(),
+                    true,amount,registerId
+            );
+
+            boolean isPaymentSaved = savePayment(payment);
+            if (isPaymentSaved){
+                new Alert(Alert.AlertType.INFORMATION,"Registration was Success!").show();
+            }
         }
 
+    }
+
+    private boolean savePayment(Payment payment) {
+        try {
+            Connection connection = DbConnection.getInstance().getConnection();
+            //3 step
+            String query = "INSERT INTO  payment(date,is_verified,amount,registration_registration_id) VALUES(?,?,?,?)";
+            //4 step
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setObject(1, payment.getDate());
+            preparedStatement.setObject(2, payment.isVerified());
+            preparedStatement.setObject(3, payment.getAmount());
+            preparedStatement.setObject(4, payment.getRegistrationId());
+
+            return preparedStatement.executeUpdate()>0;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private Long findRegistration(Registration reg){
+        try {
+            Connection connection = DbConnection.getInstance().getConnection();
+            //3 step
+            String query = "SELECT registration_id FROM registration WHERE intake_intake_id=? AND student_student_id=?";
+            //4 step
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setObject(1, reg.getIntake());
+            preparedStatement.setObject(2, reg.getStudent());
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return resultSet.getLong(1);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0L;
     }
 
     private boolean saveRegistration(Registration reg){
@@ -163,6 +222,7 @@ public class RegistrationsFormController {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     private double getProgramAmount(long programId) {
