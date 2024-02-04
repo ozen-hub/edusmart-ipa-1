@@ -140,35 +140,23 @@ public class StudentFormController {
         searchText="%"+searchText+"%";
 
         try{
-            Connection connection = DbConnection.getInstance().getConnection();
-            //3 step
-            String query = "SELECT * FROM student WHERE student_name LIKE ? OR email LIKE ?";
-            //4 step
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            //5 step
-            preparedStatement.setString(1,searchText);
-            preparedStatement.setString(2,searchText);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
             ObservableList<StudentTm> tms= FXCollections.observableArrayList();
 
-            while (resultSet.next()) {
-
+            for (Student student:new DataBaseAccessCode().findAllStudents(searchText)
+                 ) {
                 Button deleteButton = new Button("Delete");
                 Button updateButton = new Button("Update");
 
                 ButtonBar bar = new ButtonBar();
                 bar.getButtons().addAll(deleteButton,updateButton);
 
-
                 StudentTm tm = new StudentTm(
-                        resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getBoolean(6)?"Active":"InActive",
+                        student.getStudentId(),
+                        student.getStudentName(),
+                        student.getEmail(),
+                        student.getDate().toString(),
+                        student.getAddress(),
+                        student.isStatus()?"Active":"InActive",
                         bar
                 );
                 tms.add(tm);
@@ -189,6 +177,7 @@ public class StudentFormController {
                     //==========================
                     btnSaveUpdate.setText("Update Student");
                 });
+
                 deleteButton.setOnAction(e->{
 
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "are you sure?",
@@ -196,16 +185,7 @@ public class StudentFormController {
                     Optional<ButtonType> buttonType = alert.showAndWait();
                     if (buttonType.get()==ButtonType.YES){
                         try{
-                            Connection connection1 = DbConnection.getInstance().getConnection();
-                            //3 step
-                            String query1 = "DELETE FROM student WHERE student_id=?";
-                            //4 step
-                            PreparedStatement preparedStatement1 = connection1.prepareStatement(query1);
-                            //5 step
-                            preparedStatement1.setInt(1,tm.getId());
-
-
-                            if(preparedStatement1.executeUpdate()>0){
+                            if(new DataBaseAccessCode().deleteStudent(tm.getId())){
                                 new Alert(Alert.AlertType.INFORMATION, "Student was Deleted!").show();
                                 loadStudents("");
                             }else{
@@ -217,8 +197,8 @@ public class StudentFormController {
                         }
                     }
                 });
-
             }
+
 
             tblStudent.setItems(tms);
 
