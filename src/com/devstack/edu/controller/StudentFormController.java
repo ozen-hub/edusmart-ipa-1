@@ -92,7 +92,7 @@ public class StudentFormController {
 
         if(btnSaveUpdate.getText().equalsIgnoreCase("Save Student")){
             try{
-                if(new StudentDaoImpl().saveStudent(student)){
+                if(new StudentDaoImpl().save(student)){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
                     clearFields();
                     loadStudents(searchText);
@@ -186,7 +186,7 @@ public class StudentFormController {
                     Optional<ButtonType> buttonType = alert.showAndWait();
                     if (buttonType.get()==ButtonType.YES){
                         try{
-                            if(new StudentDaoImpl().deleteStudent(tm.getId())){
+                            if(new StudentDaoImpl().delete(tm.getId())){
                                 new Alert(Alert.AlertType.INFORMATION, "Student was Deleted!").show();
                                 loadStudents("");
                             }else{

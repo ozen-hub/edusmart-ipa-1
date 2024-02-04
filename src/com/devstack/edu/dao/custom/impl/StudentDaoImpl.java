@@ -14,25 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDaoImpl implements StudentDao {
-    @Override
-    public boolean saveStudent(Student student) throws SQLException, ClassNotFoundException {
-        //1 step
-        Connection connection = DbConnection.getInstance().getConnection();
-        //3 step
-        String query = "INSERT INTO student(student_name,email,dob,address,status,user_email)" +
-                " VALUES (?,?,?,?,?,?)";
-        //4 step
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        //5 step
-        preparedStatement.setString(1,student.getStudentName());
-        preparedStatement.setString(2,student.getEmail());
-        preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
-        preparedStatement.setString(4,student.getAddress());
-        preparedStatement.setBoolean(5, student.isStatus());
-        preparedStatement.setString(6, student.getUserEmail());
 
-        return preparedStatement.executeUpdate()>0;
-    }
 
     @Override
     public boolean updateStudent(Student student, boolean isActive, int studentId) throws SQLException, ClassNotFoundException {
@@ -79,8 +61,35 @@ public class StudentDaoImpl implements StudentDao {
         return students;
     }
 
+
+
     @Override
-    public boolean deleteStudent(int id) throws SQLException, ClassNotFoundException {
+    public boolean save(Student student) throws SQLException, ClassNotFoundException {
+        //1 step
+        Connection connection = DbConnection.getInstance().getConnection();
+        //3 step
+        String query = "INSERT INTO student(student_name,email,dob,address,status,user_email)" +
+                " VALUES (?,?,?,?,?,?)";
+        //4 step
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        //5 step
+        preparedStatement.setString(1,student.getStudentName());
+        preparedStatement.setString(2,student.getEmail());
+        preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
+        preparedStatement.setString(4,student.getAddress());
+        preparedStatement.setBoolean(5, student.isStatus());
+        preparedStatement.setString(6, student.getUserEmail());
+
+        return preparedStatement.executeUpdate()>0;
+    }
+
+    @Override
+    public boolean update(Student student) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Integer id) throws SQLException, ClassNotFoundException {
         //1 step
         Connection connection1 = DbConnection.getInstance().getConnection();
         //3 step
@@ -90,5 +99,15 @@ public class StudentDaoImpl implements StudentDao {
         //5 step
         preparedStatement1.setInt(1,id);
         return preparedStatement1.executeUpdate()>0;
+    }
+
+    @Override
+    public Student find(Integer integer) {
+        return null;
+    }
+
+    @Override
+    public List<Student> findAll() {
+        return null;
     }
 }

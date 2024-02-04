@@ -1,10 +1,9 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.dao.custom.impl.TrainerDaoImpl;
 import com.devstack.edu.db.DbConnection;
-import com.devstack.edu.model.Student;
-import com.devstack.edu.model.Trainer;
-import com.devstack.edu.util.GlobalVar;
-import com.devstack.edu.view.tm.StudentTm;
+
+import com.devstack.edu.entity.Trainer;
 import com.devstack.edu.view.tm.TrainerTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,7 +70,7 @@ public class TrainersFormController {
 
             ObservableList<TrainerTm> tms= FXCollections.observableArrayList();
 
-            for (Trainer trainer:new DataBaseAccessCode().findAllTrainers(searchText)) {
+            for (Trainer trainer:new TrainerDaoImpl().findAllTrainers(searchText)) {
 
                 Button deleteButton = new Button("Delete");
                 Button updateButton = new Button("Update");
@@ -155,7 +154,7 @@ public class TrainersFormController {
 
         if(btnSaveUpdate.getText().equalsIgnoreCase("Save Trainer")){
             try{
-                if(new DataBaseAccessCode().saveTrainer(trainer)){
+                if(new TrainerDaoImpl().save(trainer)){
                     new Alert(Alert.AlertType.INFORMATION, "Trainer was Saved!").show();
                     clearFields();
                     loadTrainers(searchText);
@@ -173,7 +172,7 @@ public class TrainersFormController {
                 return;
             }
             try{
-                if(new DataBaseAccessCode().updateTrainer(trainer, selectedTrainerId)){
+                if(new TrainerDaoImpl().updateTrainer(trainer, selectedTrainerId)){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
                     clearFields();
                     loadTrainers(searchText);
