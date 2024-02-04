@@ -91,23 +91,7 @@ public class StudentFormController {
 
         if(btnSaveUpdate.getText().equalsIgnoreCase("Save Student")){
             try{
-                //1 step
-                Connection connection = DbConnection.getInstance().getConnection();
-                //3 step
-                String query = "INSERT INTO student(student_name,email,dob,address,status,user_email)" +
-                        " VALUES (?,?,?,?,?,?)";
-                //4 step
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                //5 step
-                preparedStatement.setString(1,student.getStudentName());
-                preparedStatement.setString(2,student.getEmail());
-                preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
-                preparedStatement.setString(4,student.getAddress());
-                preparedStatement.setBoolean(5, student.isStatus());
-                preparedStatement.setString(6, GlobalVar.userEmail);
-
-
-                if(preparedStatement.executeUpdate()>0){
+                if(new DataBaseAccessCode().saveStudent(student)){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
                     clearFields();
                     loadStudents(searchText);
@@ -125,22 +109,7 @@ public class StudentFormController {
                 return;
             }
             try{
-                Connection connection = DbConnection.getInstance().getConnection();
-                //3 step
-                String query = "UPDATE student SET student_name=?, email=?, dob=?,address=?, status=?" +
-                        " WHERE student_id=?";
-                //4 step
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                //5 step
-                preparedStatement.setString(1,student.getStudentName());
-                preparedStatement.setString(2,student.getEmail());
-                preparedStatement.setDate(3,java.sql.Date.valueOf(student.getDate()));
-                preparedStatement.setString(4,student.getAddress());
-                preparedStatement.setBoolean(5,rBtnActive.isSelected());
-                preparedStatement.setInt(6,selectedStudentId);
-
-
-                if(preparedStatement.executeUpdate()>0){
+                if(new DataBaseAccessCode().updateStudent(student, rBtnActive.isSelected(),selectedStudentId )){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
                     clearFields();
                     loadStudents(searchText);
