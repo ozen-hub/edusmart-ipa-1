@@ -67,20 +67,11 @@ public class TrainersFormController {
         searchText="%"+searchText+"%";
 
         try{
-            Connection connection = DbConnection.getInstance().getConnection();
-            //3 step
-            String query = "SELECT * FROM trainer WHERE trainer_name LIKE ? OR trainer_email LIKE ?";
-            //4 step
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            //5 step
-            preparedStatement.setString(1,searchText);
-            preparedStatement.setString(2,searchText);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
 
             ObservableList<TrainerTm> tms= FXCollections.observableArrayList();
 
-            while (resultSet.next()) {
+            for (Trainer trainer:new DataBaseAccessCode().findAllTrainers(searchText)) {
 
                 Button deleteButton = new Button("Delete");
                 Button updateButton = new Button("Update");
@@ -88,14 +79,13 @@ public class TrainersFormController {
                 ButtonBar bar = new ButtonBar();
                 bar.getButtons().addAll(deleteButton,updateButton);
 
-
                 TrainerTm tm = new TrainerTm(
-                        resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getBoolean(6)?"Active":"InActive",
+                        trainer.getTrainerId(),
+                        trainer.getTrainerName(),
+                        trainer.getTrainerEmail(),
+                        trainer.getNic(),
+                        trainer.getAddress(),
+                        trainer.isTrainerStatus()?"Active":"InActive",
                         bar
                 );
                 tms.add(tm);
@@ -165,21 +155,7 @@ public class TrainersFormController {
 
         if(btnSaveUpdate.getText().equalsIgnoreCase("Save Trainer")){
             try{
-                Connection connection = DbConnection.getInstance().getConnection();
-                //3 step
-                String query = "INSERT INTO trainer(trainer_name,trainer_email,nic,address,trainer_status)" +
-                        " VALUES (?,?,?,?,?)";
-                //4 step
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                //5 step
-                preparedStatement.setString(1,trainer.getTrainerName());
-                preparedStatement.setString(2,trainer.getTrainerEmail());
-                preparedStatement.setString(3,trainer.getNic());
-                preparedStatement.setString(4,trainer.getAddress());
-                preparedStatement.setBoolean(5, trainer.isTrainerStatus());
-
-
-                if(preparedStatement.executeUpdate()>0){
+                if(new DataBaseAccessCode().saveTrainer(trainer)){
                     new Alert(Alert.AlertType.INFORMATION, "Trainer was Saved!").show();
                     clearFields();
                     loadTrainers(searchText);
@@ -197,21 +173,7 @@ public class TrainersFormController {
                 return;
             }
             try{
-                Connection connection = DbConnection.getInstance().getConnection();
-                //3 step
-                String query = "UPDATE trainer SET trainer_name=?, trainer_email=?, nic=?,address=?" +
-                        " WHERE trainer_id=?";
-                //4 step
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                //5 step
-                preparedStatement.setString(1,trainer.getTrainerName());
-                preparedStatement.setString(2,trainer.getTrainerEmail());
-                preparedStatement.setString(3,trainer.getTrainerEmail());
-                preparedStatement.setString(4,trainer.getAddress());
-                preparedStatement.setLong(5,selectedTrainerId);
-
-
-                if(preparedStatement.executeUpdate()>0){
+                if(new DataBaseAccessCode().updateTrainer(trainer, selectedTrainerId)){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
                     clearFields();
                     loadTrainers(searchText);

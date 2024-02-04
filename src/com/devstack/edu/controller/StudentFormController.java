@@ -1,7 +1,8 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.dao.custom.impl.StudentDaoImpl;
 import com.devstack.edu.db.DbConnection;
-import com.devstack.edu.model.Student;
+import com.devstack.edu.entity.Student;
 import com.devstack.edu.util.GlobalVar;
 import com.devstack.edu.view.tm.StudentTm;
 import javafx.collections.FXCollections;
@@ -87,11 +88,11 @@ public class StudentFormController {
 
         Student student= new Student(0,txtStudentName.getText(),
                 txtEmail.getText(),
-                dob.getValue(),txtAddress.getText(),true);
+                dob.getValue(),txtAddress.getText(),true,GlobalVar.userEmail);
 
         if(btnSaveUpdate.getText().equalsIgnoreCase("Save Student")){
             try{
-                if(new DataBaseAccessCode().saveStudent(student)){
+                if(new StudentDaoImpl().saveStudent(student)){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
                     clearFields();
                     loadStudents(searchText);
@@ -109,7 +110,7 @@ public class StudentFormController {
                 return;
             }
             try{
-                if(new DataBaseAccessCode().updateStudent(student, rBtnActive.isSelected(),selectedStudentId )){
+                if(new StudentDaoImpl().updateStudent(student, rBtnActive.isSelected(),selectedStudentId )){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
                     clearFields();
                     loadStudents(searchText);
@@ -142,7 +143,7 @@ public class StudentFormController {
         try{
             ObservableList<StudentTm> tms= FXCollections.observableArrayList();
 
-            for (Student student:new DataBaseAccessCode().findAllStudents(searchText)
+            for (Student student:new StudentDaoImpl().findAllStudents(searchText)
                  ) {
                 Button deleteButton = new Button("Delete");
                 Button updateButton = new Button("Update");
@@ -185,7 +186,7 @@ public class StudentFormController {
                     Optional<ButtonType> buttonType = alert.showAndWait();
                     if (buttonType.get()==ButtonType.YES){
                         try{
-                            if(new DataBaseAccessCode().deleteStudent(tm.getId())){
+                            if(new StudentDaoImpl().deleteStudent(tm.getId())){
                                 new Alert(Alert.AlertType.INFORMATION, "Student was Deleted!").show();
                                 loadStudents("");
                             }else{
