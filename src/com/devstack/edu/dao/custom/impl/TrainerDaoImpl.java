@@ -1,5 +1,6 @@
 package com.devstack.edu.dao.custom.impl;
 
+import com.devstack.edu.dao.CrudUtil;
 import com.devstack.edu.dao.custom.TrainerDao;
 import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.entity.Trainer;
@@ -15,33 +16,14 @@ public class TrainerDaoImpl implements TrainerDao {
 
     @Override
     public boolean updateTrainer(Trainer trainer, long trainerId) throws SQLException, ClassNotFoundException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        //3 step
-        String query = "UPDATE trainer SET trainer_name=?, trainer_email=?, nic=?,address=?" +
-                " WHERE trainer_id=?";
-        //4 step
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        //5 step
-        preparedStatement.setString(1,trainer.getTrainerName());
-        preparedStatement.setString(2,trainer.getTrainerEmail());
-        preparedStatement.setString(3,trainer.getTrainerEmail());
-        preparedStatement.setString(4,trainer.getAddress());
-        preparedStatement.setLong(5,trainerId);
-
-        return preparedStatement.executeUpdate()>0;
+        return CrudUtil.execute("UPDATE trainer SET trainer_name=?, trainer_email=?, nic=?,address=?" +
+                " WHERE trainer_id=?",trainer.getTrainerName(),trainer.getTrainerEmail(),trainer.getTrainerEmail(),
+                trainer.getAddress(),trainerId);
     }
 
     @Override
     public List<Trainer> findAllTrainers(String searchText) throws SQLException, ClassNotFoundException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        //3 step
-        String query = "SELECT * FROM trainer WHERE trainer_name LIKE ? OR trainer_email LIKE ?";
-        //4 step
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        //5 step
-        preparedStatement.setString(1,searchText);
-        preparedStatement.setString(2,searchText);
-        ResultSet rs = preparedStatement.executeQuery();
+        ResultSet rs = CrudUtil.execute("SELECT * FROM trainer WHERE trainer_name LIKE ? OR trainer_email LIKE ?",searchText,searchText);
         ArrayList<Trainer> trainers = new ArrayList<>();
         while (rs.next()){
             trainers.add(
@@ -60,19 +42,9 @@ public class TrainerDaoImpl implements TrainerDao {
 
     @Override
     public boolean save(Trainer trainer) throws SQLException, ClassNotFoundException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        //3 step
-        String query = "INSERT INTO trainer(trainer_name,trainer_email,nic,address,trainer_status)" +
-                " VALUES (?,?,?,?,?)";
-        //4 step
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        //5 step
-        preparedStatement.setString(1,trainer.getTrainerName());
-        preparedStatement.setString(2,trainer.getTrainerEmail());
-        preparedStatement.setString(3,trainer.getNic());
-        preparedStatement.setString(4,trainer.getAddress());
-        preparedStatement.setBoolean(5, trainer.isTrainerStatus());
-        return preparedStatement.executeUpdate()>0;
+        return CrudUtil.execute( "INSERT INTO trainer(trainer_name,trainer_email,nic,address,trainer_status)" +
+                " VALUES (?,?,?,?,?)",trainer.getTrainerName(),trainer.getTrainerEmail(),trainer.getNic(),
+                trainer.getAddress(),trainer.isTrainerStatus());
     }
 
     @Override
