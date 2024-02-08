@@ -1,9 +1,12 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.bo.BoFactory;
+import com.devstack.edu.bo.custom.StudentBo;
 import com.devstack.edu.dao.DaoFactory;
 import com.devstack.edu.dao.custom.StudentDao;
 import com.devstack.edu.dao.custom.impl.StudentDaoImpl;
 import com.devstack.edu.db.DbConnection;
+import com.devstack.edu.dto.StudentDto;
 import com.devstack.edu.entity.Student;
 import com.devstack.edu.util.GlobalVar;
 import com.devstack.edu.view.tm.StudentTm;
@@ -42,12 +45,12 @@ public class StudentFormController {
     public Label lblStatus;
     public RadioButton rBtnInActive;
 
-    private String searchText="";
-    private int selectedStudentId=0;
+    private String searchText = "";
+    private int selectedStudentId = 0;
 
-    private StudentDao studentDao= DaoFactory.getDao(DaoFactory.DaoType.STUDENT);
+    private StudentBo studentbo = BoFactory.getBo(BoFactory.BoType.STUDENT);
 
-    public void initialize(){
+    public void initialize() {
 
         manageStatusVisibility(false);
 
@@ -63,7 +66,7 @@ public class StudentFormController {
 
 
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            searchText=newValue;
+            searchText = newValue;
             if (newValue != null) {
                 loadStudents(searchText);
             }
@@ -80,8 +83,9 @@ public class StudentFormController {
     public void backToHomeOnAction(ActionEvent actionEvent) throws IOException {
         setUi("DashboardForm");
     }
+
     private void setUi(String location) throws IOException {
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("../view/"+location+".fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("../view/" + location + ".fxml")));
         Stage stage = (Stage) studentFormContext.getScene().getWindow();
         stage.setTitle("EduSmart");
         stage.setScene(scene);
@@ -90,41 +94,41 @@ public class StudentFormController {
 
     public void btnSaveUpdateOnAction(ActionEvent actionEvent) {
 
-        Student student= new Student(0,txtStudentName.getText(),
+        StudentDto student = new StudentDto(0, txtStudentName.getText(),
                 txtEmail.getText(),
-                dob.getValue(),txtAddress.getText(),true,GlobalVar.userEmail);
+                dob.getValue(), txtAddress.getText(), true);
 
-        if(btnSaveUpdate.getText().equalsIgnoreCase("Save Student")){
-            try{
-                if(studentDao.save(student)){
+        if (btnSaveUpdate.getText().equalsIgnoreCase("Save Student")) {
+            try {
+                if (studentbo.saveStudent(student)) {
                     new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
                     clearFields();
                     loadStudents(searchText);
-                }else{
+                } else {
                     new Alert(Alert.AlertType.WARNING, "Try Again").show();
                 }
 
-            }catch (ClassNotFoundException | SQLException e){
+            } catch (ClassNotFoundException | SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
                 e.printStackTrace();
             }
-        }else{
-            if (selectedStudentId==0){
+        } else {
+            if (selectedStudentId == 0) {
                 new Alert(Alert.AlertType.ERROR, "Please verify the student id").show();
                 return;
             }
-            try{
-                if(studentDao.updateStudent(student, rBtnActive.isSelected(),selectedStudentId )){
+            try {
+                if (studentbo.updateStudent(student, rBtnActive.isSelected(), selectedStudentId)) {
                     new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
                     clearFields();
                     loadStudents(searchText);
                     manageStatusVisibility(false);
                     btnSaveUpdate.setText("Save Student");
-                }else{
+                } else {
                     new Alert(Alert.AlertType.WARNING, "Try Again").show();
                 }
 
-            }catch (ClassNotFoundException | SQLException e){
+            } catch (ClassNotFoundException | SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
                 e.printStackTrace();
             }
@@ -132,28 +136,28 @@ public class StudentFormController {
     }
 
 
-    private void clearFields(){
-       // txtAddress.setText("");
+    private void clearFields() {
+        // txtAddress.setText("");
         txtAddress.clear();
         txtStudentName.clear();
         txtEmail.clear();
         dob.setValue(null);
     }
 
-    private void loadStudents(String searchText){
+    private void loadStudents(String searchText) {
 
-        searchText="%"+searchText+"%";
+        searchText = "%" + searchText + "%";
 
-        try{
-            ObservableList<StudentTm> tms= FXCollections.observableArrayList();
+        try {
+            ObservableList<StudentTm> tms = FXCollections.observableArrayList();
 
-            for (Student student:studentDao.findAllStudents(searchText)
-                 ) {
+            for (StudentDto student : studentbo.findAllStudents(searchText)
+            ) {
                 Button deleteButton = new Button("Delete");
                 Button updateButton = new Button("Update");
 
                 ButtonBar bar = new ButtonBar();
-                bar.getButtons().addAll(deleteButton,updateButton);
+                bar.getButtons().addAll(deleteButton, updateButton);
 
                 StudentTm tm = new StudentTm(
                         student.getStudentId(),
@@ -161,21 +165,21 @@ public class StudentFormController {
                         student.getEmail(),
                         student.getDate().toString(),
                         student.getAddress(),
-                        student.isStatus()?"Active":"InActive",
+                        student.isStatus() ? "Active" : "InActive",
                         bar
                 );
                 tms.add(tm);
 
-                updateButton.setOnAction(e->{
+                updateButton.setOnAction(e -> {
                     txtStudentName.setText(tm.getName());
                     txtEmail.setText(tm.getEmail());
                     dob.setValue(LocalDate.parse(tm.getDob()));
                     txtAddress.setText(tm.getAddress());
-                    selectedStudentId=tm.getId();
+                    selectedStudentId = tm.getId();
                     //==========================
-                    if (tm.isStatus().equals("Active")){
+                    if (tm.isStatus().equals("Active")) {
                         rBtnActive.setSelected(true);
-                    }else{
+                    } else {
                         rBtnInActive.setSelected(true);
                     }
                     manageStatusVisibility(true);
@@ -183,21 +187,21 @@ public class StudentFormController {
                     btnSaveUpdate.setText("Update Student");
                 });
 
-                deleteButton.setOnAction(e->{
+                deleteButton.setOnAction(e -> {
 
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "are you sure?",
-                            ButtonType.YES,ButtonType.NO);
+                            ButtonType.YES, ButtonType.NO);
                     Optional<ButtonType> buttonType = alert.showAndWait();
-                    if (buttonType.get()==ButtonType.YES){
-                        try{
-                            if(studentDao.delete(tm.getId())){
+                    if (buttonType.get() == ButtonType.YES) {
+                        try {
+                            if (studentbo.deleteStudent(tm.getId())) {
                                 new Alert(Alert.AlertType.INFORMATION, "Student was Deleted!").show();
                                 loadStudents("");
-                            }else{
+                            } else {
                                 new Alert(Alert.AlertType.WARNING, "Try Again").show();
                             }
 
-                        }catch (SQLException | ClassNotFoundException ex){
+                        } catch (SQLException | ClassNotFoundException ex) {
                             ex.printStackTrace();
                         }
                     }
@@ -207,7 +211,7 @@ public class StudentFormController {
 
             tblStudent.setItems(tms);
 
-        }catch (ClassNotFoundException | SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
             e.printStackTrace();
         }
@@ -215,7 +219,7 @@ public class StudentFormController {
 
     public void btnNewStudentOnAction(ActionEvent actionEvent) {
         clearFields();
-        selectedStudentId=0;
+        selectedStudentId = 0;
         btnSaveUpdate.setText("Save Student");
     }
 }
