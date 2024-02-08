@@ -4,9 +4,11 @@ import com.devstack.edu.dao.CrudUtil;
 import com.devstack.edu.dao.custom.ProgramDao;
 import com.devstack.edu.entity.Program;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProgramDaoImpl implements ProgramDao {
@@ -32,18 +34,18 @@ public class ProgramDaoImpl implements ProgramDao {
 
     @Override
     public List<Program> findAll() throws SQLException, ClassNotFoundException {
-       List<Program> list = new ArrayList<>();
-       ResultSet set= CrudUtil.execute("SELECT * FROM program p INNER JOIN program_content pc ON p.program_id=pc.program_program_id");
-       while(set.next()){
-           System.out.println(set);
-           System.out.println(set.getString(1));
-           /*list.add(
-                   new Program(set.getLong(1),set.getInt(2),
-                           set.getString(3),set.getDouble(4),
-                           set.getString(5),set.getLong(6),
-                           "")
-           );*/
-       }
-       return null;
+        List<Program> list = new ArrayList<>();
+        ResultSet set = CrudUtil.execute("SELECT p.program_id, p.program_name,p.hours,p.amount,p.trainer_trainer_id,p.user_email,\n" +
+                "GROUP_CONCAT(pc.header) AS content FROM program p JOIN program_content pc ON p.program_id=pc.program_program_id\n" +
+                " GROUP BY p.program_id");
+        while (set.next()) {
+            list.add(
+                    new Program(set.getLong(1), set.getInt(3), set.getString(2), set.getDouble(4),
+                            set.getString(6), set.getLong(5),
+                            Arrays.asList(set.getString(7).split(",")))
+            );
+        }
+        System.out.println(list);
+        return list;
     }
 }
