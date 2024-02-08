@@ -1,5 +1,7 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.dao.DaoFactory;
+import com.devstack.edu.dao.custom.StudentDao;
 import com.devstack.edu.dao.custom.impl.StudentDaoImpl;
 import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.entity.Student;
@@ -42,6 +44,8 @@ public class StudentFormController {
 
     private String searchText="";
     private int selectedStudentId=0;
+
+    private StudentDao studentDao= (StudentDao) DaoFactory.getDao(DaoFactory.DaoType.STUDENT);
 
     public void initialize(){
 
@@ -92,7 +96,7 @@ public class StudentFormController {
 
         if(btnSaveUpdate.getText().equalsIgnoreCase("Save Student")){
             try{
-                if(new StudentDaoImpl().save(student)){
+                if(studentDao.save(student)){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Saved!").show();
                     clearFields();
                     loadStudents(searchText);
@@ -110,7 +114,7 @@ public class StudentFormController {
                 return;
             }
             try{
-                if(new StudentDaoImpl().updateStudent(student, rBtnActive.isSelected(),selectedStudentId )){
+                if(studentDao.updateStudent(student, rBtnActive.isSelected(),selectedStudentId )){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
                     clearFields();
                     loadStudents(searchText);
@@ -143,7 +147,7 @@ public class StudentFormController {
         try{
             ObservableList<StudentTm> tms= FXCollections.observableArrayList();
 
-            for (Student student:new StudentDaoImpl().findAllStudents(searchText)
+            for (Student student:studentDao.findAllStudents(searchText)
                  ) {
                 Button deleteButton = new Button("Delete");
                 Button updateButton = new Button("Update");
@@ -186,7 +190,7 @@ public class StudentFormController {
                     Optional<ButtonType> buttonType = alert.showAndWait();
                     if (buttonType.get()==ButtonType.YES){
                         try{
-                            if(new StudentDaoImpl().delete(tm.getId())){
+                            if(studentDao.delete(tm.getId())){
                                 new Alert(Alert.AlertType.INFORMATION, "Student was Deleted!").show();
                                 loadStudents("");
                             }else{
