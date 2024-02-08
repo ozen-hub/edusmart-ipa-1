@@ -1,11 +1,8 @@
 package com.devstack.edu.controller;
 
 import com.devstack.edu.db.DbConnection;
-import com.devstack.edu.model.Program;
-import com.devstack.edu.model.ProgramContent;
 import com.devstack.edu.util.GlobalVar;
 import com.devstack.edu.view.tm.ProgramTm;
-import com.devstack.edu.view.tm.TrainerTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -106,13 +103,13 @@ public class ProgramsFormController {
     }
 
     public void btnSaveProgramOnAction(ActionEvent actionEvent) {
-        Program program = new Program(
+       /* Program program = new Program(
                 0L, Integer.parseInt(txtHours.getText()),
                 txtProgramName.getText(), Double.parseDouble(txtAmount.getText()),
                 GlobalVar.userEmail,
                 Long.parseLong(cmbTrainer.getValue().split("->")[0])
                 , contents
-        );
+        );*/
 
 
         try {
@@ -121,11 +118,11 @@ public class ProgramsFormController {
             String query = "INSERT INTO program(hours,program_name,amount,user_email,trainer_trainer_id) VALUES(?,?,?,?,?)";
             //4 step
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setObject(1, program.getHours());
+           /* preparedStatement.setObject(1, program.getHours());
             preparedStatement.setObject(2, program.getProgramName());
             preparedStatement.setObject(3, program.getAmount());
             preparedStatement.setObject(4, program.getUserEmail());
-            preparedStatement.setObject(5, program.getTrainerId());
+            preparedStatement.setObject(5, program.getTrainerId());*/
 
             boolean isSaved = preparedStatement.executeUpdate() > 0;
 

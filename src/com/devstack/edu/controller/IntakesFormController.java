@@ -50,7 +50,7 @@ public class IntakesFormController {
             //2 step
             Connection connection = DbConnection.getInstance().getConnection();
             //3 step
-            String query = "SELECT program_id,program_name FROM program";
+            String query = "";
             //4 step
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
