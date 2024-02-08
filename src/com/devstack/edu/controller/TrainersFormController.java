@@ -1,5 +1,7 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.dao.DaoFactory;
+import com.devstack.edu.dao.custom.TrainerDao;
 import com.devstack.edu.dao.custom.impl.TrainerDaoImpl;
 import com.devstack.edu.db.DbConnection;
 
@@ -40,6 +42,8 @@ public class TrainersFormController {
     private String searchText="";
     private long selectedTrainerId=0;
 
+    private TrainerDao trainerDao = DaoFactory.getDao(DaoFactory.DaoType.TRAINER);
+
     public void initialize(){
 
         colTrainerId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -70,7 +74,7 @@ public class TrainersFormController {
 
             ObservableList<TrainerTm> tms= FXCollections.observableArrayList();
 
-            for (Trainer trainer:new TrainerDaoImpl().findAllTrainers(searchText)) {
+            for (Trainer trainer:trainerDao.findAllTrainers(searchText)) {
 
                 Button deleteButton = new Button("Delete");
                 Button updateButton = new Button("Update");
@@ -154,7 +158,7 @@ public class TrainersFormController {
 
         if(btnSaveUpdate.getText().equalsIgnoreCase("Save Trainer")){
             try{
-                if(new TrainerDaoImpl().save(trainer)){
+                if(trainerDao.save(trainer)){
                     new Alert(Alert.AlertType.INFORMATION, "Trainer was Saved!").show();
                     clearFields();
                     loadTrainers(searchText);
@@ -172,7 +176,7 @@ public class TrainersFormController {
                 return;
             }
             try{
-                if(new TrainerDaoImpl().updateTrainer(trainer, selectedTrainerId)){
+                if(trainerDao.updateTrainer(trainer, selectedTrainerId)){
                     new Alert(Alert.AlertType.INFORMATION, "Student was Updated!").show();
                     clearFields();
                     loadTrainers(searchText);

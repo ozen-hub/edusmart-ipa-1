@@ -45,7 +45,7 @@ public class StudentFormController {
     private String searchText="";
     private int selectedStudentId=0;
 
-    private StudentDao studentDao= (StudentDao) DaoFactory.getDao(DaoFactory.DaoType.STUDENT);
+    private StudentDao studentDao= DaoFactory.getDao(DaoFactory.DaoType.STUDENT);
 
     public void initialize(){
 

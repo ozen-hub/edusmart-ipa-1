@@ -15,12 +15,12 @@ public class DaoFactory {
 
 
 
-    public static SuperDao getDao(DaoType type) {
+    public static <T> T getDao(DaoType type) {
         switch (type) {
             case STUDENT:
-                return new StudentDaoImpl();
+                return (T)new StudentDaoImpl();
             case TRAINER:
-                return new TrainerDaoImpl();
+                return (T)new TrainerDaoImpl();
             default:
                 return null;
         }
