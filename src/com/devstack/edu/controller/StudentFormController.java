@@ -9,6 +9,7 @@ import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.dto.StudentDto;
 import com.devstack.edu.entity.Student;
 import com.devstack.edu.util.GlobalVar;
+import com.devstack.edu.validators.SimpleTextValidator;
 import com.devstack.edu.view.tm.StudentTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -96,6 +97,14 @@ public class StudentFormController {
     }
 
     public void btnSaveUpdateOnAction(ActionEvent actionEvent) {
+        txtStudentName.getStyleClass().removeAll("error");
+
+        if (!SimpleTextValidator.validateName(txtStudentName.getText())){
+            txtStudentName.getStyleClass().add("error");
+            new Alert(Alert.AlertType.WARNING, "Wrong Student name").show();
+            return;
+        }
+
 
         StudentDto student = new StudentDto(0, txtStudentName.getText(),
                 txtEmail.getText(),
@@ -158,6 +167,10 @@ public class StudentFormController {
             ) {
                 Button deleteButton = new Button("Delete");
                 Button updateButton = new Button("Update");
+
+                deleteButton.getStyleClass().add("delete-button");
+                updateButton.getStyleClass().add("update-button");
+
 
                 ButtonBar bar = new ButtonBar();
                 bar.getButtons().addAll(deleteButton, updateButton);
