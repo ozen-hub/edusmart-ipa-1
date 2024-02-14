@@ -7,11 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,12 +33,12 @@ public class ProgramsFormController {
     public TableColumn colOperation;
     public ComboBox<String> cmbTrainer;
     public TextField txtAmount;
-    public ListView<String> lstContent;
+    public ListView lstContent;
     public TextField txtProgramName;
 
     private String searchText = "";
 
-    ObservableList<String> contents = FXCollections.observableArrayList();
+    ObservableList<HBox> contents = FXCollections.observableArrayList();
 
     public void initialize() {
         loadAllTrainers();
@@ -51,7 +53,7 @@ public class ProgramsFormController {
 
 
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            searchText=newValue;
+            searchText = newValue;
             if (newValue != null) {
                 loadAllPrograms(searchText);
             }
@@ -132,17 +134,24 @@ public class ProgramsFormController {
             if (resultSet.next()) {
                 long pId = resultSet.getLong(1);
                 if (isSaved) {
-                    for (String s : contents
+                    for (HBox hbox:contents
                     ) {
-                        PreparedStatement preparedStatement2 =
-                                connection.prepareStatement("INSERT INTO program_content(header,program_program_id) VALUES(?,?)");
-                        preparedStatement2.setObject(1, s);
-                        preparedStatement2.setObject(2, pId);
+                        for (Node node: hbox.getChildren()
+                        ) {
+                            if(node instanceof Label){
+                                Label l = (Label) node;
+                                String text = l.getText();
+                                PreparedStatement preparedStatement2 =
+                                        connection.prepareStatement("INSERT INTO program_content(header,program_program_id) VALUES(?,?)");
+                                preparedStatement2.setObject(1, text);
+                                preparedStatement2.setObject(2, pId);
 
-                        preparedStatement2.executeUpdate();
+                                preparedStatement2.executeUpdate();
+                            }
+                        }
+                        new Alert(Alert.AlertType.CONFIRMATION, "Saved!").show();
+                        loadAllPrograms(searchText);
                     }
-                    new Alert(Alert.AlertType.CONFIRMATION, "Saved!").show();
-                    loadAllPrograms(searchText);
                 }
             }
             //---------------------------------
@@ -157,8 +166,8 @@ public class ProgramsFormController {
 
     private void loadAllPrograms(String searchText) {
 
-        searchText="%"+searchText+"%";
-        try{
+        searchText = "%" + searchText + "%";
+        try {
 
             Connection connection = DbConnection.getInstance().getConnection();
             //3 step
@@ -166,11 +175,11 @@ public class ProgramsFormController {
             //4 step
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             //5 step
-            preparedStatement.setString(1,searchText);
+            preparedStatement.setString(1, searchText);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            ObservableList<ProgramTm> tms= FXCollections.observableArrayList();
+            ObservableList<ProgramTm> tms = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
 
@@ -178,7 +187,7 @@ public class ProgramsFormController {
                 Button showMoreButton = new Button("Show");
 
                 ButtonBar bar = new ButtonBar();
-                bar.getButtons().addAll(deleteButton,showMoreButton);
+                bar.getButtons().addAll(deleteButton, showMoreButton);
 
                 ProgramTm tm = new ProgramTm(
                         resultSet.getLong("program_id"),
@@ -190,8 +199,8 @@ public class ProgramsFormController {
                 );
                 tms.add(tm);
 
-                showMoreButton.setOnAction(e->{
-                    try{
+                showMoreButton.setOnAction(e -> {
+                    try {
                        /* Parent parent = FXMLLoader.load(getClass().getResource("../view/ProgramDetailForm.fxml"));
                         Scene scene = new Scene(parent);
                         Stage stage= new Stage();
@@ -202,40 +211,40 @@ public class ProgramsFormController {
                         ProgramDetailFormController controller = loader.getController();
                         controller.setId(tm.getProgramId());
                         Scene scene = new Scene(parent);
-                        Stage stage= new Stage();
+                        Stage stage = new Stage();
                         stage.setScene(scene);
                         stage.show();
 
-                    }catch (IOException exception){
+                    } catch (IOException exception) {
 
                     }
 
                 });
 
-                deleteButton.setOnAction(e->{
+                deleteButton.setOnAction(e -> {
 
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "are you sure?",
-                            ButtonType.YES,ButtonType.NO);
+                            ButtonType.YES, ButtonType.NO);
                     Optional<ButtonType> buttonType = alert.showAndWait();
-                    if (buttonType.get()==ButtonType.YES){
-                        try{
+                    if (buttonType.get() == ButtonType.YES) {
+                        try {
                             Connection connection1 = DbConnection.getInstance().getConnection();
                             //3 step
                             String query1 = "DELETE FROM program WHERE program_id=?";
                             //4 step
                             PreparedStatement preparedStatement1 = connection1.prepareStatement(query1);
                             //5 step
-                            preparedStatement1.setLong(1,tm.getProgramId());
+                            preparedStatement1.setLong(1, tm.getProgramId());
 
 
-                            if(preparedStatement1.executeUpdate()>0){
+                            if (preparedStatement1.executeUpdate() > 0) {
                                 new Alert(Alert.AlertType.INFORMATION, "Program was Deleted!").show();
                                 loadAllPrograms("");
-                            }else{
+                            } else {
                                 new Alert(Alert.AlertType.WARNING, "Try Again").show();
                             }
 
-                        }catch (SQLException | ClassNotFoundException ex){
+                        } catch (SQLException | ClassNotFoundException ex) {
                             ex.printStackTrace();
                         }
                     }
@@ -245,7 +254,7 @@ public class ProgramsFormController {
 
             tblPrograms.setItems(tms);
 
-        }catch (ClassNotFoundException | SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
             e.printStackTrace();
         }
@@ -255,7 +264,10 @@ public class ProgramsFormController {
 
     public void txtContentOnAction(ActionEvent actionEvent) {
         //contents.clear();
-        contents.add(txtContent.getText());
+        HBox hBox = new HBox();
+        Button btn = new Button("Delete");
+        hBox.getChildren().addAll(btn, new Label(txtContent.getText()));
+        contents.add(hBox);
         txtContent.clear();
         lstContent.setItems(contents);
     }

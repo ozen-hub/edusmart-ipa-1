@@ -44,6 +44,7 @@ public class StudentFormController {
     public RadioButton rBtnActive;
     public Label lblStatus;
     public RadioButton rBtnInActive;
+    public Button btnNewStudent;
 
     private String searchText = "";
     private int selectedStudentId = 0;
@@ -51,6 +52,8 @@ public class StudentFormController {
     private StudentBo studentbo = BoFactory.getBo(BoFactory.BoType.STUDENT);
 
     public void initialize() {
+
+        btnNewStudent.getStyleClass().add("button");
 
         manageStatusVisibility(false);
 
