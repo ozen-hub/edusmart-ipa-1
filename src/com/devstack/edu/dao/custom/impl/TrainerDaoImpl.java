@@ -41,6 +41,17 @@ public class TrainerDaoImpl implements TrainerDao {
     }
 
     @Override
+    public List<String> loadAllTrainers() throws SQLException, ClassNotFoundException {
+        ResultSet rs = CrudUtil.execute("SELECT * FROM trainer");
+        ArrayList<String> trainers = new ArrayList<>();
+        while (rs.next()){
+            trainers.add(rs.getInt(1)+"->"+rs.getString(2));
+        }
+
+        return trainers;
+    }
+
+    @Override
     public boolean save(Trainer trainer) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute( "INSERT INTO trainer(trainer_name,trainer_email,nic,address,trainer_status)" +
                 " VALUES (?,?,?,?,?)",trainer.getTrainerName(),trainer.getTrainerEmail(),trainer.getNic(),

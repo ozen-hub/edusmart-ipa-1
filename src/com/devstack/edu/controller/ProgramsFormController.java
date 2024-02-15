@@ -1,5 +1,7 @@
 package com.devstack.edu.controller;
 
+import com.devstack.edu.bo.BoFactory;
+import com.devstack.edu.bo.custom.TrainerBo;
 import com.devstack.edu.db.DbConnection;
 import com.devstack.edu.util.GlobalVar;
 import com.devstack.edu.view.tm.ProgramTm;
@@ -40,6 +42,8 @@ public class ProgramsFormController {
 
     ObservableList<HBox> contents = FXCollections.observableArrayList();
 
+    private TrainerBo trainerBo= BoFactory.getBo(BoFactory.BoType.TRAINER);
+
     public void initialize() {
         loadAllTrainers();
 
@@ -65,27 +69,8 @@ public class ProgramsFormController {
 
     private void loadAllTrainers() {
         try {
-            //1 step
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //2 step
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edusmart",
-                    "root", "1234");
-            //3 step
-            String query = "SELECT trainer_id,trainer_name FROM trainer";
-            //4 step
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            ObservableList<String> list = FXCollections.observableArrayList();
-
-            while (resultSet.next()) {
-                list.add(resultSet.getString(1) + "->" + resultSet.getString(2));
-            }
-
+            ObservableList<String> list = FXCollections.observableArrayList(trainerBo.loadAllTrainers());
             cmbTrainer.setItems(list);
-
         } catch (ClassNotFoundException | SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
             e.printStackTrace();

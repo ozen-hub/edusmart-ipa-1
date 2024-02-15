@@ -105,7 +105,8 @@ public class StudentFormController {
             return;
         }
 
-        if (!SimpleTextValidator.validateDob(dob.getValue().toString())){
+
+        if (!SimpleTextValidator.validateDob(String.valueOf(dob.getValue()))){
             new Alert(Alert.AlertType.WARNING, "Wrong DOB").show();
             return;
         }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface TrainerDao extends CrudDao<Trainer,Long> {
     public boolean updateTrainer(Trainer trainer, long trainerId) throws SQLException, ClassNotFoundException;
     public List<Trainer> findAllTrainers(String searchText) throws SQLException, ClassNotFoundException;
+    public List<String> loadAllTrainers() throws SQLException, ClassNotFoundException;
 }

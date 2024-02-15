@@ -1,6 +1,7 @@
 package com.devstack.edu.bo;
 
 import com.devstack.edu.bo.custom.impl.StudentBoImpl;
+import com.devstack.edu.bo.custom.impl.TrainerBoImpl;
 import com.devstack.edu.dao.custom.impl.StudentDaoImpl;
 import com.devstack.edu.dao.custom.impl.TrainerDaoImpl;
 
@@ -21,7 +22,7 @@ public class BoFactory {
             case STUDENT:
                 return (T)new StudentBoImpl();
             case TRAINER:
-                return null;
+                return (T)new TrainerBoImpl();
             default:
                 return null;
         }
