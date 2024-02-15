@@ -6,10 +6,20 @@ import java.util.regex.Pattern;
 //https://www.geeksforgeeks.org/regular-expressions-in-java/
 public class Regex {
     public static void main(String[] args) {
-        if (Pattern.matches("[abch]","b")){
-            System.out.println("YES");
+
+
+
+        String regex="\\s"; //[0-9 a-z A-Z _]
+
+        Pattern pattern = Pattern.compile(regex);
+
+        String input="Hello World";
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()){
+            System.out.println(true);
         }else{
-            System.out.println("NO");
+            System.out.println(false);
         }
+
     }
 }

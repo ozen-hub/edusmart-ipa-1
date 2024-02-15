@@ -105,6 +105,16 @@ public class StudentFormController {
             return;
         }
 
+        if (!SimpleTextValidator.validateDob(dob.getValue().toString())){
+            new Alert(Alert.AlertType.WARNING, "Wrong DOB").show();
+            return;
+        }
+
+        if (!SimpleTextValidator.validateAddress(txtAddress.getText())){
+            new Alert(Alert.AlertType.WARNING, "Wrong Address").show();
+            return;
+        }
+
 
         StudentDto student = new StudentDto(0, txtStudentName.getText(),
                 txtEmail.getText(),
